@@ -19,7 +19,7 @@
             </Border.Effect>
 
             <StackPanel>
-                <TextBlock Text="Mill Process" 
+                <TextBlock Text="압연 공정 시뮬레이터" 
                            Foreground="#00c2ff" 
                            FontSize="26" FontWeight="SemiBold" 
                            HorizontalAlignment="Center"

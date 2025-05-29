@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:smartFactory_MillProcess"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>
