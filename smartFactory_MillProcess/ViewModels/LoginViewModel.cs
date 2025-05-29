@@ -27,11 +27,15 @@ namespace smartFactory_MillProcess.ViewModels
         [ObservableProperty]
         private ObservableCollection<Users> users = new ObservableCollection<Users>();
 
+        [ObservableProperty]
+        private bool isMenuOpen;
+
         public LoginViewModel()
         {
             UsersInfo();
+           
         }
-
+        
         private async void UsersInfo()
         {
             List<Users> userList = await userRepo.GetUsersAsync();
@@ -51,6 +55,7 @@ namespace smartFactory_MillProcess.ViewModels
                     check = true;
                     MessageBox.Show($"{u.Name}님 로그인 성공", "로그인", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.Instance.Navigate(new MainPage());
+                    IsMenuOpen = true;
                     break;  
                 }
             }
@@ -61,6 +66,6 @@ namespace smartFactory_MillProcess.ViewModels
             }
         }
 
-
+        
     }
 }

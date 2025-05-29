@@ -24,7 +24,11 @@ namespace smartFactory_MillProcess.Views
         public LoginUser()
         {
             InitializeComponent();
-            DataContext = new LoginViewModel();
+        }
+        public LoginUser(LoginViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
         }
     }
 }

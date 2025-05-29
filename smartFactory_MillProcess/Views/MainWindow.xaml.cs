@@ -18,11 +18,25 @@ namespace smartFactory_MillProcess.Views
     public partial class MainWindow : Window
     {
         public static MainWindow Instance { get; private set; }
+        public LoginViewModel LoginVM { get; private set; }
+        public MainViewModel MainVM { get; private set; }
+        public MachineViewModel MachineVM { get; private set; }
+
         public MainWindow()
         {
             InitializeComponent();
             Instance = this;
-            MainFrame.Navigate(new LoginUser());
+
+            LoginVM = new LoginViewModel();
+            this.DataContext = LoginVM;
+
+            MainVM = new MainViewModel();
+            MachineVM = new MachineViewModel();
+
+            // LoginUser에 ViewModel 넘겨줌
+            MainFrame.Navigate(new LoginUser(LoginVM));
+
+
         }
 
         public void Navigate(Page page)

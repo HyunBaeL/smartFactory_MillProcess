@@ -6,8 +6,50 @@
         xmlns:local="clr-namespace:smartFactory_MillProcess"
         mc:Ignorable="d"
         Title="Mill Process" Height="450" Width="800">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
+    </Window.Resources>
+
     <Grid>
-        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        
+        <DockPanel LastChildFill="True">
+            <!-- 왼쪽 고정 메뉴바 -->
+            <StackPanel DockPanel.Dock="Left" 
+                        Width="100"
+                        Background="#2C3E50"
+                        Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVis}}">
+
+                <TextBlock Text="Menu" 
+                           Foreground="#00c2ff" 
+                           FontWeight="Bold" 
+                           FontSize="18" 
+                           Margin="10"
+                           HorizontalAlignment="Center"/>
+
+                <Button Content="메뉴 1" 
+                        Margin="10" 
+                        Padding="5"
+                        Background="#34495E" 
+                        Foreground="White" 
+                        BorderBrush="Transparent"/>
+
+                <Button Content="메뉴 2" 
+                        Margin="10" 
+                        Padding="5"
+                        Background="#34495E" 
+                        Foreground="White" 
+                        BorderBrush="Transparent"/>
+
+                <Button Content="로그 아웃" 
+                        Margin="10" 
+                        Padding="5"
+                        Background="#E74C3C" 
+                        Foreground="White" 
+                        BorderBrush="Transparent"/>
+            </StackPanel>
+
+            <!-- 나머지 화면은 MainFrame이 차지 -->
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        </DockPanel>
     </Grid>
 </Window>
