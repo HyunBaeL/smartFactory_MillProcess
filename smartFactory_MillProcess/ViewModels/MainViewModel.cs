@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using smartFactory_MillProcess.Views;
 
 namespace smartFactory_MillProcess.ViewModels
 {
@@ -17,13 +19,34 @@ namespace smartFactory_MillProcess.ViewModels
 
         public MainViewModel()
         {
-            MenuOpen();
+            
         }
 
         [RelayCommand]
-        private void MenuOpen()
+        private void MoveProcessMainConductor()
         {
-            IsMenuOpen = true;
+            MainWindow.Instance.Navigate(new ProcessMainConductor());
+        }
+
+        [RelayCommand]
+        private void GoBack()
+        {
+            if (MainWindow.Instance.CanGoBack())
+                MainWindow.Instance.GoBack();
+        }
+
+        [RelayCommand]
+        private void Logout()
+        {
+            MainWindow.Instance.LoginVM.ClearIdAndPwd();
+            MessageBox.Show("로그아웃", "로그아웃", MessageBoxButton.OK, MessageBoxImage.Information);
+            MainWindow.Instance.Logout();
+        }
+
+        [RelayCommand]
+        private void MoveEmployeeManagement()
+        {
+            MainWindow.Instance.Navigate(new EmployeeManagementPage());
         }
     }
 }

@@ -12,22 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using smartFactory_MillProcess.ViewModels;
 
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// RollingMachinePage.xaml에 대한 상호 작용 논리
+    /// Interaction logic for EmployeeManagementPage.xaml
     /// </summary>
-    public partial class RollingMachinePage : Page
+    public partial class EmployeeManagementPage : Page
     {
-        public RollingMachinePage()
+        public EmployeeManagementPage()
         {
             InitializeComponent();
-        }
-
-        private void MaterialComboBox2_SelectionChanged(Object sender, SelectionChangedEventArgs e)
-        {
-
+            DataContext = new EmployeeViewModel();
         }
     }
 }

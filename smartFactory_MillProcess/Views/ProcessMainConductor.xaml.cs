@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// RollingMachinePage.xaml에 대한 상호 작용 논리
+    /// Interaction logic for ProcessMainConductor.xaml
     /// </summary>
-    public partial class RollingMachinePage : Page
+    public partial class ProcessMainConductor : Page
     {
-        public RollingMachinePage()
+        public ProcessMainConductor()
         {
             InitializeComponent();
-        }
-
-        private void MaterialComboBox2_SelectionChanged(Object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

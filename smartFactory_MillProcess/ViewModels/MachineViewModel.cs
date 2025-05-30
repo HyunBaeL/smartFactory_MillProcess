@@ -25,7 +25,6 @@ namespace smartFactory_MillProcess.ViewModels
         private async void MachineInfo()
         {
             Mc = await machineRepo.GetMachine();
-           
         }
 
         //[RelayCommand]

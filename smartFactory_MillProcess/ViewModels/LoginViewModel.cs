@@ -27,9 +27,6 @@ namespace smartFactory_MillProcess.ViewModels
         [ObservableProperty]
         private ObservableCollection<Users> users = new ObservableCollection<Users>();
 
-        [ObservableProperty]
-        private bool isMenuOpen;
-
         public LoginViewModel()
         {
             UsersInfo();
@@ -40,7 +37,6 @@ namespace smartFactory_MillProcess.ViewModels
         {
             List<Users> userList = await userRepo.GetUsersAsync();
             Users = new ObservableCollection<Users>(userList);
-
         }
 
         [RelayCommand]
@@ -53,9 +49,9 @@ namespace smartFactory_MillProcess.ViewModels
                 if (u.Id.Equals(Id) && u.Pwd.Equals(Password))
                 {
                     check = true;
-                    MessageBox.Show($"{u.Name}님 로그인 성공", "로그인", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"{u.Name}님 로그인", "로그인", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.Instance.Navigate(new MainPage());
-                    IsMenuOpen = true;
+                    MainWindow.Instance.MainVM.IsMenuOpen = true;
                     break;  
                 }
             }
@@ -66,6 +62,11 @@ namespace smartFactory_MillProcess.ViewModels
             }
         }
 
-        
+        public void ClearIdAndPwd()
+        {
+            Id = string.Empty;
+            Password = string.Empty;
+        }
+
     }
 }

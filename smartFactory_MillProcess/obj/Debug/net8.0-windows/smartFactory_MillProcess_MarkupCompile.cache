@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\공정 시뮬레이션 프로젝트\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\
 smartFactory_MillProcess
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-D:\공정 시뮬레이션 프로젝트\smartFactory_MillProcess\smartFactory_MillProcess\App.xaml
-31153247051
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\App.xaml
+727046660
 
-13-1366924607
-207-633064043
-Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;
+26589876850
+207-21219847
+Views\EmployeeManagementPage.xaml;Views\furnacePage.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;Views\RollingMachinePage.xaml;
 
 False
 

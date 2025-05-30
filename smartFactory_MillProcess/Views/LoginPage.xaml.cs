@@ -30,5 +30,13 @@ namespace smartFactory_MillProcess.Views
             InitializeComponent();
             DataContext = vm;
         }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is LoginViewModel vm)
+            {
+                vm.Password = ((PasswordBox)sender).Password;
+            }
+        }
     }
 }
