@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\
+C:\Users\codingOn24\Desktop\0530_1255\smartFactory_MillProcess\obj\Debug\net8.0-windows\
 smartFactory_MillProcess
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\App.xaml
+C:\Users\codingOn24\Desktop\0530_1255\smartFactory_MillProcess\App.xaml
 727046660
 
-26589876850
-207-21219847
+271634731654
+2071100881896
 Views\EmployeeManagementPage.xaml;Views\furnacePage.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;Views\RollingMachinePage.xaml;
 
 False
