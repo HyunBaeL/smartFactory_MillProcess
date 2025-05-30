@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("smartFactory_MillProcess")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2993cd4207f3d580bf48533e66a1451697c888b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14685b5def59c8aeebd7fbe2730e40d8b9b5682a")]
 [assembly: System.Reflection.AssemblyProductAttribute("smartFactory_MillProcess")]
 [assembly: System.Reflection.AssemblyTitleAttribute("smartFactory_MillProcess")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
