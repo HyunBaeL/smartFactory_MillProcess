@@ -9,7 +9,7 @@
       Background="#1b1f2b">
 
     <Grid>
-        <Border Width="400" Padding="30" CornerRadius="8"
+        <Border Width="450" Padding="30" CornerRadius="8"
                 Background="#2b2f3a"
                 BorderBrush="#00c2ff" BorderThickness="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -35,7 +35,7 @@
 
                 <!-- 비밀번호 -->
                 <TextBlock Text="Password" Foreground="White" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
                          Height="30" Padding="5"
                          Background="#1b1f2b" Foreground="White"
                          BorderBrush="#00c2ff" BorderThickness="1" 

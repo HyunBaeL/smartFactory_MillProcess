@@ -22,14 +22,14 @@
             </Grid.RowDefinitions>
 
             <!-- 제목 -->
-            <TextBlock Text="기기 현재 상태" FontSize="50" Foreground="#00c2ff" FontWeight="SemiBold" 
-                       HorizontalAlignment="Center" Margin="0,20,0,0" Grid.Row="0"/>
+            <TextBlock Text="MILL PROCESS STATUS" FontSize="50" Foreground="#00c2ff" FontWeight="SemiBold" 
+                       HorizontalAlignment="Center" Margin="0,90,0,0" Grid.Row="0"/>
 
             <!-- 기기 상태 박스 -->
             <Border Width="600" Padding="30" CornerRadius="8" Background="#2b2f3a" 
                     BorderBrush="#00c2ff" BorderThickness="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    Margin="0,50,0,20" Grid.Row="1">
+                    Margin="0,80,0,20" Grid.Row="1">
 
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
@@ -68,69 +68,74 @@
             </Border>
 
             <!-- 작업 시작 버튼 -->
-            <Button Grid.Row="2" Content="작업 시작"
-                    Width="600" Height="100" Margin="0,10"
+            <Button Grid.Row="2" Content="PROCESS START" Command="{Binding MoveProcessMainConductorCommand}"
+                    Width="250" Height="80" Margin="0,70,0,0"
                     HorizontalAlignment="Center"
                     Background="#00c2ff" Foreground="#1b1f2b"
                     FontWeight="Bold" BorderThickness="0" 
-                    FontSize="25"/>
+                    FontSize="19"/>
 
             <!-- 하단 3개 박스 -->
             <Border Grid.Row="3" Margin="0,20,0,10">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0">
-                        <Border BorderBrush="White" BorderThickness="1" Margin="5" CornerRadius="8" >
-                        <TextBlock Text="월 234 / 4540"
-                                   Foreground="White"
-                                   FontSize="35"
-                                   FontWeight="Bold"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="2" Opacity="0.7"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                        </Border>
+                    <Button Grid.Row="1" Grid.Column="0" Content="0 / 234" 
+                            FontSize="26" FontWeight="SemiBold" 
+                            FontFamily="Segoe UI" 
+                            Background="#2b2f3a" Foreground="#ffffff" 
+                            BorderBrush="#00c2ff" BorderThickness="1" 
+                            Margin="70,0,50,20" Padding="10"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="2" Opacity="0.4"/>
+                        </Button.Effect>
                     </Button>
 
-                    <Button Grid.Column="1">
-                        <Border BorderBrush="White" BorderThickness="1" Margin="5" CornerRadius="8">
-                        <TextBlock Text="월 234 / 4540"
-                                   Foreground="White"
-                                   FontSize="35"
-                                   FontWeight="Bold"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="2" Opacity="0.7"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                    </Border>
+                    <Button Grid.Row="1" Grid.Column="1" Content="0 / 234" 
+                            FontSize="26" FontWeight="SemiBold" 
+                            FontFamily="Segoe UI" 
+                            Background="#2b2f3a" Foreground="#ffffff" 
+                            BorderBrush="#00c2ff" BorderThickness="1" 
+                            Margin="50,0,50,20" Padding="10"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="2" Opacity="0.4"/>
+                        </Button.Effect>
                     </Button>
 
-                    <Button Grid.Column="2">
-                    <Border BorderBrush="White" BorderThickness="1" Margin="5" CornerRadius="8">
-                        <TextBlock Text="월 234 / 4540"
-                                   Foreground="White"
-                                   FontSize="35"
-                                   FontWeight="Bold"
-                                   TextAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   VerticalAlignment="Center">
-                            <TextBlock.Effect>
-                                <DropShadowEffect Color="Black" BlurRadius="10" ShadowDepth="2" Opacity="0.7"/>
-                            </TextBlock.Effect>
-                        </TextBlock>
-                    </Border>
+                    <Button Grid.Row="1" Grid.Column="2" Content="0 / 234" 
+                            FontSize="26" FontWeight="SemiBold" 
+                            FontFamily="Segoe UI" 
+                            Background="#2b2f3a" Foreground="#ffffff" 
+                            BorderBrush="#00c2ff" BorderThickness="1" 
+                            Margin="50,0,70,20" Padding="10"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center">
+                        <Button.Effect>
+                            <DropShadowEffect Color="Black" BlurRadius="8" ShadowDepth="2" Opacity="0.4"/>
+                        </Button.Effect>
                     </Button>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="DAILY OPERATION"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="White" FontSize="20" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="WEEKLY OPERATION" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="White" FontSize="20" Margin="0,0,0,0"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="MONTHLY OPERATION" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Foreground="White" FontSize="20" Margin="0,0,0,0"/>
                 </Grid>
             </Border>
         </Grid>

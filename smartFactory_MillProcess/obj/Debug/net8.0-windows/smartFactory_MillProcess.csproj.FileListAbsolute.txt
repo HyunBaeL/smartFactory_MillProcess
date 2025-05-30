@@ -43,3 +43,7 @@ C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows
 C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\LoginPage.baml
 C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\MainPage.g.cs
 C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\MainPage.baml
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\ProcessMainConductor.g.cs
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\ProcessMainConductor.baml
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\EmployeeManagementPage.g.cs
+C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\obj\Debug\net8.0-windows\Views\EmployeeManagementPage.baml

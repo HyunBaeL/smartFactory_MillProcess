@@ -5,13 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:smartFactory_MillProcess"
         mc:Ignorable="d"
-        Title="Mill Process" Height="450" Width="800">
+        Title="Mill Process" 
+        WindowState="Maximized"
+        ResizeMode="CanResize"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
     </Window.Resources>
 
     <Grid>
+        
         <DockPanel LastChildFill="True">
             <!-- 왼쪽 고정 메뉴바 -->
             <StackPanel DockPanel.Dock="Left" 
@@ -26,26 +30,38 @@
                            Margin="10"
                            HorizontalAlignment="Center"/>
 
-                <Button Content="메뉴 1" 
+                <Button Content="Dashboard" 
                         Margin="10" 
                         Padding="5"
                         Background="#34495E" 
                         Foreground="White" 
                         BorderBrush="Transparent"/>
 
-                <Button Content="메뉴 2" 
+                <Button Content="사원 관리"
+                        Command="{Binding MoveEmployeeManagementCommand}"
                         Margin="10" 
                         Padding="5"
                         Background="#34495E" 
                         Foreground="White" 
                         BorderBrush="Transparent"/>
 
-                <Button Content="로그 아웃" 
-                        Margin="10" 
-                        Padding="5"
-                        Background="#E74C3C" 
-                        Foreground="White" 
-                        BorderBrush="Transparent"/>
+                
+                <Button Content="뒤로가기"
+                Command="{Binding GoBackCommand}"
+                Margin="10" 
+                Padding="5"
+                Background="#34495E" 
+                Foreground="White" 
+                BorderBrush="Transparent"/>
+
+                <Button Content="로그 아웃"
+                Command="{Binding LogoutCommand}"
+                Margin="10" 
+                Padding="5"
+                Background="#E74C3C" 
+                Foreground="White" 
+                BorderBrush="Transparent"/>
+
             </StackPanel>
 
             <!-- 나머지 화면은 MainFrame이 차지 -->
