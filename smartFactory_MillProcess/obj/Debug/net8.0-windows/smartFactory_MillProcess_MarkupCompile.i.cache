@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\vs\smartFactory_MillProcess\smartFactory_MillProcess\App.xaml
-5-463291471
+727046660
 
-202062519383
+28892187282
 207-21219847
-Views\EmployeeManagementPage.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;
+Views\EmployeeManagementPage.xaml;Views\furnacePage.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;Views\RollingMachinePage.xaml;
 
-False
+True
 
