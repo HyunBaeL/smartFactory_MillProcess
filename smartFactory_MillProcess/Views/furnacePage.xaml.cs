@@ -7,11 +7,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using ScottPlot;
+using ScottPlot.WPF;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using smartFactory_MillProcess.ViewModels;
+using System.Reflection.Emit;
+
 
 namespace smartFactory_MillProcess.Views
 {
@@ -20,14 +26,18 @@ namespace smartFactory_MillProcess.Views
     /// </summary>
     public partial class furnacePage : Page
     {
+        public  FurnaceViewModel viewModel;
         public furnacePage()
         {
             InitializeComponent();
-        }
-        private void MaterialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // 이벤트 처리 로직
-        }
 
+            viewModel = new FurnaceViewModel
+            {
+                plotControl = PlotControl
+            };
+
+            DataContext = viewModel;
+        }
+       
     }
 }
