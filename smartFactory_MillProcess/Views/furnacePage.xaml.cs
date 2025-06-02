@@ -31,6 +31,7 @@ namespace smartFactory_MillProcess.Views
         public furnacePage()
         {
             InitializeComponent();
+
             {
                 // 이벤트 처리 로직
                 viewModel = new FurnaceViewModel
