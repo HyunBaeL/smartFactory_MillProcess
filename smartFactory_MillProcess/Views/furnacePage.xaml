@@ -4,10 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:smartFactory_MillProcess.Views"
+      xmlns:viewModels="clr-namespace:smartFactory_MillProcess.ViewModels"
+      xmlns:wpf="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
+
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="furnace"
       Background="#1b1f2b">
+    
     <Grid>
         <Border Width="770" Padding="15" CornerRadius="8"
              Background="#2b2f3a"
@@ -39,23 +43,25 @@
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
                     <Grid Width="341" Height="104">
                         <Button Width="330"
-                HorizontalAlignment="Center"
-                Margin="0,50,0,11"
-                Background="Transparent"
-                BorderThickness="0">
+                            HorizontalAlignment="Center"
+                            Margin="0,50,0,11"
+                            Background="Transparent"
+                            BorderThickness="0"
+                                Command="{Binding StartTemperatureUpdateCommand}">
+
                             <Border Background="#00c2ff"
-                    CornerRadius="8"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                                    CornerRadius="8"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
                                 <TextBlock Text="START"
-                        Width="330"
-                        Foreground="#1b1f2b"
-                        FontWeight="Bold"
-                        FontSize="19"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        TextAlignment="Center"
-                        Padding="10" FontFamily="Swis721 Lt BT"/>
+                                    Width="330"
+                                    Foreground="#1b1f2b"
+                                    FontWeight="Bold"
+                                    FontSize="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    TextAlignment="Center"
+                                    Padding="10" FontFamily="Swis721 Lt BT"/>       
                             </Border>
                         </Button>
                     </Grid>
@@ -63,52 +69,81 @@
 
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,0">
                     <TextBlock Text="재료 : "  
-            Width="84"  
-            Foreground="#FFF8F1F1"  
-            FontSize="25"  
-            Height="32"  
-            FontFamily="Noto Sans KR"
-            VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MaterialComboBox"
-            Width="160" Height="40"
-            SelectedIndex="-1"
-            Foreground="White"
-            FontSize="26"
-            BorderThickness="2"
-            BorderBrush="#00C8FF"
-            Background="#2b2f3a"
-            SelectionChanged="MaterialComboBox_SelectionChanged"
-            FontFamily="Noto Sans KR">
-                        <ComboBoxItem Content="알루미늄"/>
-                        <ComboBoxItem Content="스테인리스"/>
-                        <ComboBoxItem Content="탄소강"/>
+                    Width="84"  
+                    Foreground="#FFF8F1F1"  
+                    FontSize="25"  
+                    Height="32"  
+                    FontFamily="Noto Sans KR"
+                    VerticalAlignment="Center"/>
+                            <ComboBox x:Name="MaterialComboBox"
+                    Width="160" Height="40"
+                    SelectedIndex="-1"
+                    Foreground="White"
+                    FontSize="26"
+                    BorderThickness="2"
+                    BorderBrush="#00C8FF"
+                    Background="#2b2f3a"
+                    SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     
+                    FontFamily="Noto Sans KR"
+                                      ItemsSource="{Binding MaterialOptions}">
+                        
                     </ComboBox>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="20,15,0,0">
-                    <TextBlock Text="설정온도(°C ) : " Width="190" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
-                    <TextBlock Text="산화 SCAlE(μm) : 150μm" Margin="0,15,0,0" Width="320" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="설정온도(°C )  :  " Width="180" HorizontalAlignment="Center" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+                        <TextBlock TextAlignment="Left" Grid.Column="1" Foreground="#FFF8F1F1" FontSize="26" Height="32">
+                            <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" 
+                                TextAlignment="Left" Width="140" Grid.Column="1" Margin="5,0,0,0" Foreground="#FFF8F1F1" Background="#2b2f3a" FontSize="26" Height="32">
+                            </TextBox>
+                        </TextBlock>
+                                   
+
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="산화Scale(μm)" Margin="0,15,0,0" Width="175" HorizontalAlignment="Center" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+                        <TextBlock Text=": 150" TextAlignment="Left" Margin="0,15,0,0" Grid.Column="1" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+                    </Grid>
                 </StackPanel>
 
                 <!-- ProgressBar를 두 개의 Column에 걸쳐서 배치 -->
                 <ProgressBar Grid.ColumnSpan="2" Grid.Row="3" Padding="10" Margin="25,0,25,40"
-        Minimum="0" Maximum="100"
-        Foreground="#00c2ff" Background="#1b1f2b"
-        Value="{Binding ProgressValue}" />
+                    Minimum="0" Maximum="100"
+                    Foreground="#00c2ff" Background="#1b1f2b"
+                    Value="{Binding ProgressValue}" />
 
                 <TextBlock Grid.ColumnSpan="2" Grid.Row="3"
-        Text="{Binding ProgressValue, StringFormat={}{0}%}" 
-        Margin="200,0,0,40"
-        HorizontalAlignment="Left" 
-        VerticalAlignment="Center" 
-        Width="300"
-        FontSize="15"
-        Foreground="Black" Height="20" FontFamily="Noto Sans KR"/>
+                    Text="{Binding ProgressValue, StringFormat={}{0}%}" 
+                    Margin="200,0,0,40"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center" 
+                                       TextAlignment="Center"
+                    Width="300"
+                    FontSize="15"
+                    Foreground="White" Height="20" FontFamily="Noto Sans KR"/>  
 
                 <!-- 오른쪽 그래프 공간 -->
                 <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,45" Grid.RowSpan="3">
 
+                    <wpf:WpfPlot x:Name="PlotControl" />
+
+
                 </Border>
+               
+                <TextBlock Text="{Binding GeneratedTemperature, StringFormat='생성된 난수: {0}'}"
+           Foreground="White" FontSize="20" Margin="35" Width="180" Height="20" VerticalAlignment="Top"/>
+                <TextBlock Text="{Binding AverageTemperature, StringFormat='평균 온도: {0}'}"
+           Foreground="White" FontSize="20" Margin="10" Width="180" Height="20" VerticalAlignment="Top"/>
             </Grid>
         </Border>
 

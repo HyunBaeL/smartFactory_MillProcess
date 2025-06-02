@@ -25,6 +25,11 @@ namespace smartFactory_MillProcess.Views
 
         public EmployeeViewModel EmployeeVM { get; private set; }
 
+        public FurnaceViewModel furnaceVM { get; private set; }
+        public RollingMachineViewModel rollingMachineVM { get; private set; }
+
+        
+
         private Stack<Page> NavigationHistory = new Stack<Page>();
 
         public MainWindow()
@@ -45,6 +50,8 @@ namespace smartFactory_MillProcess.Views
 
             LoginVM = new LoginViewModel();
             EmployeeVM = new EmployeeViewModel();
+            furnaceVM = new FurnaceViewModel();
+            rollingMachineVM = new RollingMachineViewModel();
 
             MainVM = new MainViewModel(LoginVM, EmployeeVM);
             DataContext = MainVM;
@@ -53,7 +60,11 @@ namespace smartFactory_MillProcess.Views
             MainFrame.Navigate(new LoginUser(LoginVM));
 
 
+
         }
+
+        
+
 
         public void Navigate(Page page)
         {

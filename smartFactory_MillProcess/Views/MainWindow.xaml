@@ -16,6 +16,8 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
     </Window.Resources>
+    
+
 
    
             <Grid>
@@ -79,7 +81,13 @@
                                FontSize="18" 
                                Margin="10"
                                HorizontalAlignment="Center"/>
-                        <Button Content="대시보드" 
+                <Button Content="공정 버튼" Width="100" Command="{Binding LetsgoCommand}"
+                Margin="10" 
+                Padding="5"
+                Background="#34495E" 
+                Foreground="White" 
+                BorderBrush="Transparent"/> 
+                <Button Content="대시보드" 
                             Margin="10" 
                             Padding="5"
                             Background="#34495E" 
@@ -112,5 +120,7 @@
                     <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
                 </DockPanel>
             </Grid>
+
         
+
 </Window>

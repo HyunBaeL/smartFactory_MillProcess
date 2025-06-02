@@ -29,6 +29,7 @@ namespace smartFactory_MillProcess.ViewModels
         {
             LoginViewModel = loginVM;
             EmployeeViewModel = employeeVM;
+
         }
 
         [RelayCommand]
@@ -77,6 +78,16 @@ namespace smartFactory_MillProcess.ViewModels
             window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
         }
 
-        
+        [RelayCommand]
+        private void Letsgo()
+        {
+            MainWindow.Instance.Navigate(new furnacePage());
+        }
+        [RelayCommand]
+        private void Letsgo2()
+        {
+            MainWindow.Instance.Navigate(new RollingMachinePage());
+        }
+
     }
 }
