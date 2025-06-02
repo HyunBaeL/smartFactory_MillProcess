@@ -24,6 +24,8 @@ namespace smartFactory_MillProcess.Views
         public MachineViewModel MachineVM { get; private set; }
 
         public EmployeeViewModel EmployeeVM { get; private set; }
+        public FurnaceViewModel FurnaceVM { get; private set; }
+        public RollingMachineViewModel RollingMachineVM { get; private set; }
 
         public FurnaceViewModel furnaceVM { get; private set; }
         public RollingMachineViewModel rollingMachineVM { get; private set; }
@@ -56,6 +58,9 @@ namespace smartFactory_MillProcess.Views
             MainVM = new MainViewModel(LoginVM, EmployeeVM);
             DataContext = MainVM;
             MachineVM = new MachineViewModel();
+            EmployeeVM = new EmployeeViewModel();
+            FurnaceVM = new FurnaceViewModel();
+            RollingMachineVM = new RollingMachineViewModel();
 
             MainFrame.Navigate(new LoginUser(LoginVM));
 
