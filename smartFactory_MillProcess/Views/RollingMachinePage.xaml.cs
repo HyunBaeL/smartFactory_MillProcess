@@ -25,11 +25,11 @@ namespace smartFactory_MillProcess.Views
         public RollingMachinePage()
         {
             InitializeComponent();
-
             RMVM = new RollingMachineViewModel();
            
 
             DataContext = RMVM;
+            DataContext = new RollingMachineViewModel();
         }
 
         

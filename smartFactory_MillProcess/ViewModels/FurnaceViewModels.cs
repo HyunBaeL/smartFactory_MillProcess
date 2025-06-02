@@ -14,15 +14,19 @@ using ScottPlot;
 using ScottPlot.WPF;
 using ScottPlot.Reporting;
 using System.Reflection.Emit;
+using smartFactory_MillProcess.Views;
+using System.Windows.Controls;
+
 
 
 namespace smartFactory_MillProcess.ViewModels;
 
 public partial class FurnaceViewModel : ObservableObject
 {
+
     private Furnace furnaceModel = new Furnace();  // 🔹 Model 객체 생성
     private DispatcherTimer timer;  // 🔹 타이머 객체
-      
+    public bool IsMenuOpen { get; set; }
 
     private int elapsedSeconds;  // 🔹 경과 시간
     private Random random = new Random();  // 🔹 난수 생성기
