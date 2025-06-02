@@ -28,11 +28,11 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <!-- 첫 번째 줄 -->
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MinHeight="60"/>
                     <!-- 두 번째 줄 -->
 
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="0*"/>
                     <!-- 세 번째 줄 (크기 조절 가능) -->
                     <RowDefinition Height="Auto" MinHeight="75.747"/>
                     <!-- ProgressBar 유지 -->
@@ -42,6 +42,7 @@
                 <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
                     <Grid Width="341" Height="104">
                         <Button Width="330"
+                                Command="{Binding StartRollSpeedUpdateCommand}"
                             HorizontalAlignment="Center"
                             Margin="0,50,0,11"
                             Background="Transparent"
@@ -51,6 +52,7 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center">
                                 <TextBlock Text="START"
+                                    
                                     Width="330"
                                     Foreground="#1b1f2b"
                                     FontWeight="Bold"
@@ -73,6 +75,7 @@
                         FontFamily="Noto Sans KR"
                         VerticalAlignment="Center"/>
                     <ComboBox x:Name="MaterialComboBox2"
+                              IsEditable="True"
                         Width="160" Height="40"
                         SelectedIndex="-1"
                         Foreground="White"
@@ -80,35 +83,67 @@
                         BorderThickness="2"
                         BorderBrush="#00C8FF"
                         Background="#2b2f3a"
-                        FontFamily="Noto Sans KR">
-                        <ComboBoxItem Content="알루미늄"/>
-                        <ComboBoxItem Content="스테인리스"/>
-                        <ComboBoxItem Content="탄소강"/>
+                        FontFamily="Noto Sans KR"
+                        SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding MaterialOptions}">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#2b2f3a"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#2b2f3a"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2b2f3a"/>
+
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="#2b2f3a"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <!-- 모든 상태에서 색상 통일 -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                    <Trigger Property="IsDropDownOpen" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+
+                            <!-- 편집 가능한 텍스트박스 부분 스타일 -->
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="#2b2f3a"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </ComboBox.Resources>
                     </ComboBox>
                 </StackPanel>
 
-                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="20,40,0,0">
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,1" Grid.RowSpan="2">
                     <TextBlock Text="롤 속도 (RPM) : " Width="190" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
-                    <TextBlock Text=" " Width="150" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+                    <TextBlock  Width="150" Foreground="#FFF8F1F1" FontSize="26" Height="37">
+                        <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged }" Width="148" Height="30" Margin="0,5,0,0" Foreground="#FFF8F1F1" Background="#1b1f2b"></TextBox>
+                    </TextBlock>
+
                 </StackPanel>
 
                 <!-- ProgressBar를 두 개의 Column에 걸쳐서 배치 -->
-                <ProgressBar Grid.ColumnSpan="2" Grid.Row="4" Padding="10" Margin="25,0,25,40"
+                <ProgressBar Grid.ColumnSpan="2" Grid.Row="4" Padding="10" Margin="30,1,25,41"
                     Minimum="0" Maximum="100"
                     Foreground="#00c2ff" Background="#1b1f2b"
                     Value="{Binding ProgressValue}" />
 
-                <TextBlock Grid.ColumnSpan="2" Grid.Row="4"
+                <TextBlock Grid.ColumnSpan="2" Grid.Row="3"
                     Text="{Binding ProgressValue, StringFormat={}{0}%}" 
-                    Margin="200,0,0,40"
+                    Margin="200,7,0,0"
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Center" 
+                    VerticalAlignment="Top" 
+                                       TextAlignment="Center"
                     Width="300"
                     FontSize="15"
-                    Foreground="Black" Height="20" FontFamily="Noto Sans KR"/>
+                    Foreground="White" Height="20" FontFamily="Noto Sans KR" Grid.RowSpan="2"/>
 
                 <!-- 오른쪽 결과값 공간 -->
-                <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,24" Grid.RowSpan="4">
+                <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,39" Grid.RowSpan="3">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -162,47 +197,55 @@
                         <TextBlock
                             Grid.Column="1"
                             Grid.Row="0"
-                            Text=":결과값입력"
+                            Text="{Binding FinalThickness, StringFormat= :   {0:F3}}"
                             TextAlignment="Center"
                             Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
                             FontSize="26"
                             >
+                            
+                                
+                            
                         </TextBlock>
                         <TextBlock
                             Grid.Column="1"
                             Grid.Row="1"
-                            Text=":결과값입력"
+                            Text="{Binding Hardness, StringFormat= :   {0:F3}}"
                             TextAlignment="Center"
                             Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
                             FontSize="26"
                             >
+                            
                         </TextBlock>
                         <TextBlock
                             Grid.Column="1"
                             Grid.Row="2"
-                            Text=":결과값입력"
+                            Text="{Binding Strength, StringFormat= :   {0:F3}}"
                             TextAlignment="Center"
                             Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
                             FontSize="26"
                             >
+                            
+
                         </TextBlock>
                         <TextBlock
                             Grid.Column="1"
                             Grid.Row="3"
-                            Text=":결과값입력"
+                            Text="{Binding CompressionRatio, StringFormat= :   {0:F3}}"
                             TextAlignment="Center"
                             Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
                             FontSize="26"
                             >
+                           
                         </TextBlock>
                         <TextBlock
                             Grid.Column="1"
                             Grid.Row="4"
-                            Text=":결과값입력"
+                            Text="{Binding ErrorRatio, StringFormat= :   {0:F3}}"
                             TextAlignment="Center"
                             Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
                             FontSize="26"
                             >
+                         
                         </TextBlock>
                     </Grid>
                 </Border>

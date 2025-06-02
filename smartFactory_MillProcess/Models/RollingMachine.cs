@@ -9,12 +9,15 @@ namespace smartFactory_MillProcess.Models
     public class RollingMachine
     {
         public int RollSpeed { get; set; }
-        public double Thickness { get; set; }
+        public double InitialThickness { get; set; }
+        public double FinalThickness { get; set; }
         public double Hardness { get; set; }
         public double Strength { get; set; }
         public double CompressionRatio { get; set; }
         public double ErrorRatio { get; set; }
-        public List<int> Errors { get; set; } = new List<int>();
-        public List<int> CompleteCount { get; set; } = new List<int>();
+        public int Errors { get; set; }
+        public int CompleteCount { get; set; }
+        public string UserInput { get; set; }
+
     }
 }
