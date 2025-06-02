@@ -28,8 +28,8 @@ namespace smartFactory_MillProcess.Views
             RMVM = new RollingMachineViewModel();
            
 
-            DataContext = RMVM;
-            DataContext = new RollingMachineViewModel();
+            this.DataContext = RMVM;
+            
         }
 
         
