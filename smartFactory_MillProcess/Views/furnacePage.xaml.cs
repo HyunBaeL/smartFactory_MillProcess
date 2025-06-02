@@ -27,25 +27,29 @@ namespace smartFactory_MillProcess.Views
     /// </summary>
     public partial class furnacePage : Page
     {
-        public  FurnaceViewModel viewModel;
+        public FurnaceViewModel viewModel;
         public furnacePage()
         {
             InitializeComponent();
 
-         
-        
-            // 이벤트 처리 로직
-            viewModel = new FurnaceViewModel
             {
-                plotControl = PlotControl
-            };
+                // 이벤트 처리 로직
+                viewModel = new FurnaceViewModel
+                {
+                    plotControl = PlotControl
+                };
 
-            DataContext = viewModel;
+                this.DataContext = viewModel;
+
+
+
+            }
+
+
+
 
         }
 
     }
-       
-    
 
 }
