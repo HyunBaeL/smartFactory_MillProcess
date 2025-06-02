@@ -19,6 +19,7 @@ namespace smartFactory_MillProcess.Models
 
         public WpfPlot WpfPlot { get; set; }
         
+        
     }
     
 }

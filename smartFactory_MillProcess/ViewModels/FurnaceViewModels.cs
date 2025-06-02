@@ -85,18 +85,22 @@ public partial class FurnaceViewModel : ObservableObject
             case "알루미늄":
                 MinAllowedTemp = 900;
                 MaxAllowedTemp = 1100;
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
                 break;
             case "스테인리스":
                 MinAllowedTemp = 1100;
                 MaxAllowedTemp = 1200;
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
                 break;
             case "탄소강":
                 MinAllowedTemp = 1200;
                 MaxAllowedTemp = 1300;
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
                 break;
             default:
-                MinAllowedTemp = 1000;
-                MaxAllowedTemp = 1300;
+                MinAllowedTemp = 0;
+                MaxAllowedTemp = 0;
+                MessageBox.Show("재료를 선택해주세요");
                 break;
         }
     }
@@ -110,9 +114,24 @@ public partial class FurnaceViewModel : ObservableObject
         
         if (int.TryParse(UserInput, out int userTemperature) && userTemperature >= MinAllowedTemp && userTemperature <= MaxAllowedTemp)
         {
+            if (timer.IsEnabled)
+            {
+                timer.Stop(); //  기존 타이머 중단
+            }
+
             DisplayTemperature = userTemperature;
-            furnaceModel.TemperatureHistory.Clear();  // 🔹 Model의 온도 기록 초기화
+
+            //  타이머 및 기록 초기화
             elapsedSeconds = 0;
+            furnaceModel.TemperatureHistory.Clear();
+            furnaceModel.TimeHistory.Clear();
+
+            ProgressValue = 0;
+            AverageTemperature = 0;
+
+            plotControl?.Plot.Clear();  //  그래프 초기화
+            plotControl?.Refresh();
+
             timer.Start();
         }
         else

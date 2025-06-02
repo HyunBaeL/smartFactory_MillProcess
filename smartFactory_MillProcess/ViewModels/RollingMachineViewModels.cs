@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace smartFactory_MillProcess.ViewModels
 {
-    internal class RollingMachineViewModels
+    public class RollingMachineViewModel 
     {
+
     }
 }

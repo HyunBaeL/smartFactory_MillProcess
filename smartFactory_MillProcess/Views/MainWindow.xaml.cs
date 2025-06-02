@@ -26,6 +26,9 @@ namespace smartFactory_MillProcess.Views
         public EmployeeViewModel EmployeeVM { get; private set; }
 
         public FurnaceViewModel furnaceVM { get; private set; }
+        public RollingMachineViewModel rollingMachineVM { get; private set; }
+
+        
 
         private Stack<Page> NavigationHistory = new Stack<Page>();
 
@@ -42,6 +45,7 @@ namespace smartFactory_MillProcess.Views
             MachineVM = new MachineViewModel();
             EmployeeVM = new EmployeeViewModel();
             furnaceVM = new FurnaceViewModel();
+            rollingMachineVM = new RollingMachineViewModel();
 
             // LoginUser에 ViewModel 넘겨줌
             MainFrame.Navigate(new LoginUser(LoginVM));

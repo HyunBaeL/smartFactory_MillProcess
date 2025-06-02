@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using smartFactory_MillProcess.ViewModels;
 
 namespace smartFactory_MillProcess.Views
 {
@@ -20,14 +21,17 @@ namespace smartFactory_MillProcess.Views
     /// </summary>
     public partial class RollingMachinePage : Page
     {
+        public RollingMachineViewModels RMVM;
         public RollingMachinePage()
         {
             InitializeComponent();
+
+            RMVM = new RollingMachineViewModels();
+           
+
+            DataContext = RMVM;
         }
 
-        private void MaterialComboBox2_SelectionChanged(Object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+        
     }
 }
