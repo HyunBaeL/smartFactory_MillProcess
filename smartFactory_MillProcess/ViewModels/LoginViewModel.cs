@@ -17,12 +17,23 @@ namespace smartFactory_MillProcess.ViewModels
     public partial class LoginViewModel : ObservableObject
     {
         private UserRepository userRepo = new UserRepository();
+        private EmployeeRepository empRepo = new EmployeeRepository();
 
         [ObservableProperty]
         private string id;
 
         [ObservableProperty]
+        private string name;
+        [ObservableProperty]
         private string password;
+
+        [ObservableProperty]
+        private int employeeId;
+
+        [ObservableProperty]
+        private string department;
+        [ObservableProperty]
+        private string position;
 
         [ObservableProperty]
         private ObservableCollection<Users> users = new ObservableCollection<Users>();
@@ -30,9 +41,9 @@ namespace smartFactory_MillProcess.ViewModels
         public LoginViewModel()
         {
             UsersInfo();
-           
+
         }
-        
+
         private async void UsersInfo()
         {
             List<Users> userList = await userRepo.GetUsersAsync();
@@ -40,7 +51,7 @@ namespace smartFactory_MillProcess.ViewModels
         }
 
         [RelayCommand]
-        private void Login()
+        private async Task Login()
         {
             bool check = false;
 
@@ -49,10 +60,20 @@ namespace smartFactory_MillProcess.ViewModels
                 if (u.Id.Equals(Id) && u.Pwd.Equals(Password))
                 {
                     check = true;
-                    MessageBox.Show($"{u.Name}님 로그인", "로그인", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Name = u.Name;
+
+
+                    Employee employee = new Employee();
+
+                    employee = await empRepo.selectOne(u.EmployeeId);
+                    EmployeeId = employee.EmployeeId;
+                    Department = employee.Department;
+                    Position = employee.Position;
+
+                    MessageBox.Show($"{u.Name}님 환영합니다", "로그인", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow.Instance.Navigate(new MainPage());
                     MainWindow.Instance.MainVM.IsMenuOpen = true;
-                    break;  
+                    break;
                 }
             }
 

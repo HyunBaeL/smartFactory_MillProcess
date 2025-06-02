@@ -6,9 +6,12 @@
         xmlns:local="clr-namespace:smartFactory_MillProcess"
         mc:Ignorable="d"
         Title="Mill Process" 
-        WindowState="Maximized"
         ResizeMode="CanResize"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+    
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
@@ -16,64 +19,108 @@
     
 
 
-    <Grid>
-        
-        <DockPanel LastChildFill="True">
-            <!-- 왼쪽 고정 메뉴바 -->
-            <StackPanel DockPanel.Dock="Left" 
-                        Width="100"
-                        Background="#2C3E50"
-                        Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVis}}">
-                <Button Height="10" Command="{Binding LetsgoCommand}">
-                    
-                </Button>
-                <Button Height="10" Command="{Binding Letsgo2Command}" Background="Black">
+   
+            <Grid>
+                <DockPanel LastChildFill="True">
+                    <!-- 상단 고정 바 -->
+            <Grid DockPanel.Dock="Top" Height="40" Background="#1ABC9C" Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVis}}" MouseDown="TitleBar_MouseDown">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
 
-                </Button>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                            <Ellipse Margin="6,10,0,0" Width="30" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/Resource/dog.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                            <TextBlock Margin="20,10,20,0" FontSize="12" Text="{Binding LoginViewModel.Name}" 
+                                   Width="80" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Margin="5,10,0,0" FontSize="12" Text="{Binding LoginViewModel.Department}" 
+                                   Width="100" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Margin="5,10,0,0" FontSize="12" Text="{Binding LoginViewModel.Position}" 
+                                   Width="100" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </StackPanel>
 
-                <TextBlock Text="Menu" 
-                           Foreground="#00c2ff" 
-                           FontWeight="Bold" 
-                           FontSize="18" 
-                           Margin="10"
-                           HorizontalAlignment="Center"/>
+                <Button Grid.Column="5" Content="X"
+                        Width="30" Height="30" Margin="5"
+                        Background="Transparent" Foreground="White" BorderBrush="Transparent"
+                        FontWeight="Bold" FontSize="16"
+                        Command="{Binding CloseWindowCommand}"
+                        Cursor="Hand" />
+                <!-- 최소화 버튼 -->
+                <Button Grid.Column="3" Content="─"
+            Width="40" Height="30" Margin="2"
+            Background="Transparent" Foreground="White" BorderBrush="Transparent"
+            FontSize="14" FontWeight="Bold"
+            Command="{Binding MinimizeWindowCommand}"
+            Cursor="Hand"/>
 
-                <Button Content="Dashboard" 
-                        Margin="10" 
-                        Padding="5"
-                        Background="#34495E" 
-                        Foreground="White" 
-                        BorderBrush="Transparent"/>
+                <!-- 최대화/복원 버튼 -->
+                <Button Grid.Column="4" Content="▭"
+            Width="40" Height="30" Margin="2"
+            Background="Transparent" Foreground="White" BorderBrush="Transparent"
+            FontSize="14" FontWeight="Bold"
+            Command="{Binding MaximizeRestoreWindowCommand}"
+            Cursor="Hand"/>
+            </Grid>
 
-                <Button Content="사원 관리"
-                        Command="{Binding MoveEmployeeManagementCommand}"
-                        Margin="10" 
-                        Padding="5"
-                        Background="#34495E" 
-                        Foreground="White" 
-                        BorderBrush="Transparent"/>
-
-                
-                <Button Content="뒤로가기"
-                Command="{Binding GoBackCommand}"
+                    <!-- 왼쪽 고정 메뉴바 -->
+                    <StackPanel DockPanel.Dock="Left" 
+                            Width="100"
+                            Background="#2C3E50"
+                            Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVis}}">
+                        <TextBlock Text="Menu" 
+                               Foreground="#00c2ff" 
+                               FontWeight="Bold" 
+                               FontSize="18" 
+                               Margin="10"
+                               HorizontalAlignment="Center"/>
+                <Button Content="공정 버튼" Width="100" Command="{Binding LetsgoCommand}"
                 Margin="10" 
                 Padding="5"
                 Background="#34495E" 
                 Foreground="White" 
-                BorderBrush="Transparent"/>
+                BorderBrush="Transparent"/> 
+                <Button Content="대시보드" 
+                            Margin="10" 
+                            Padding="5"
+                            Background="#34495E" 
+                            Foreground="White" 
+                            BorderBrush="Transparent"/>
+                        <Button Content="사원 관리"
+                            Command="{Binding MoveEmployeeManagementCommand}"
+                            Margin="10" 
+                            Padding="5"
+                            Background="#34495E" 
+                            Foreground="White" 
+                            BorderBrush="Transparent"/>
+                        <Button Content="뒤로가기"
+                            Command="{Binding GoBackCommand}"
+                            Margin="10" 
+                            Padding="5"
+                            Background="#34495E" 
+                            Foreground="White" 
+                            BorderBrush="Transparent"/>
+                        <Button Content="로그 아웃"
+                            Command="{Binding LogoutCommand}"
+                            Margin="10" 
+                            Padding="5"
+                            Background="#E74C3C" 
+                            Foreground="White" 
+                            BorderBrush="Transparent"/>
+                    </StackPanel>
 
-                <Button Content="로그 아웃"
-                Command="{Binding LogoutCommand}"
-                Margin="10" 
-                Padding="5"
-                Background="#E74C3C" 
-                Foreground="White" 
-                BorderBrush="Transparent"/>
+                    <!-- 메인 화면 -->
+                    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+                </DockPanel>
+            </Grid>
 
-            </StackPanel>
+        
 
-            <!-- 나머지 화면은 MainFrame이 차지 -->
-            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
-        </DockPanel>
-    </Grid>
 </Window>

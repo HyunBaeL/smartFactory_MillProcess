@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:smartFactory_MillProcess.Views"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProcessMainConductor">
+      Title="ProcessMainConductor"
+      Background="#2b2f3a">
     <Border Width="700" Padding="90" CornerRadius="8"
             Background="#2B2F3A"
         BorderBrush="#00C2FF" BorderThickness="1"

@@ -12,8 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\서민재\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\서민재\\.nuget\\packages",
+      "C:\\Users\\fhfld\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\fhfld\\.nuget\\packages",
       "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
     ],
     "configProperties": {

@@ -80,7 +80,6 @@
                         BorderThickness="2"
                         BorderBrush="#00C8FF"
                         Background="#2b2f3a"
-                        SelectionChanged="MaterialComboBox2_SelectionChanged"
                         FontFamily="Noto Sans KR">
                         <ComboBoxItem Content="알루미늄"/>
                         <ComboBoxItem Content="스테인리스"/>

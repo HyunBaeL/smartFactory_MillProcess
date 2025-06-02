@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using smartFactory_MillProcess.Views;
@@ -13,12 +14,21 @@ namespace smartFactory_MillProcess.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         public MachineViewModel MachineViewModel { get; } = new MachineViewModel();
+        public LoginViewModel LoginViewModel { get; set; } = new LoginViewModel();
+        public EmployeeViewModel EmployeeViewModel { get; set; } = new EmployeeViewModel();
 
         [ObservableProperty]
         private bool isMenuOpen;
 
         public MainViewModel()
         {
+
+        }
+
+        public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM)
+        {
+            LoginViewModel = loginVM;
+            EmployeeViewModel = employeeVM;
 
         }
 
@@ -50,6 +60,25 @@ namespace smartFactory_MillProcess.ViewModels
         }
 
         [RelayCommand]
+        private void CloseWindow()
+        {
+            Application.Current.Shutdown(); // 앱 종료 (MainWindow 닫기)
+        }
+
+        [RelayCommand]
+        private void MinimizeWindow()
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        [RelayCommand]
+        private void MaximizeRestoreWindow()
+        {
+            var window = Application.Current.MainWindow;
+            window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        [RelayCommand]
         private void Letsgo()
         {
             MainWindow.Instance.Navigate(new furnacePage());
@@ -59,5 +88,6 @@ namespace smartFactory_MillProcess.ViewModels
         {
             MainWindow.Instance.Navigate(new RollingMachinePage());
         }
+
     }
 }
