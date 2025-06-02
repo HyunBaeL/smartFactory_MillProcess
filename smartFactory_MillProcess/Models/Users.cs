@@ -15,7 +15,7 @@ namespace smartFactory_MillProcess.Models
         public string Phone { get; set; }
         public string Address { get; set; }
         public int EmployeeId { get; set; } // 사원번호
-        //public bool delYN { get; set; }
+        public bool IsDelete { get; set; }
 
         public override string ToString()
         {

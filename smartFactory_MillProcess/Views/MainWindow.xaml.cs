@@ -32,15 +32,24 @@ namespace smartFactory_MillProcess.Views
             InitializeComponent();
             Instance = this;
 
-            LoginVM = new LoginViewModel();
-            //this.DataContext = LoginVM;
+            // 윈도우 상태를 Normal로 바꾸고
+            this.WindowState = WindowState.Normal;
 
-            MainVM = new MainViewModel();
-            DataContext = MainVM;
-            MachineVM = new MachineViewModel();
+            var screenWidth = SystemParameters.PrimaryScreenWidth;
+            var screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            this.Width = screenWidth * 0.95;   // 화면 너비의 95%
+            this.Height = screenHeight * 0.95; // 화면 높이의 95%
+            // 화면 크기만큼 수동으로 크기 설정
+            var screen = System.Windows.SystemParameters.WorkArea; // 작업 표시줄 제외한 영역
+
+            LoginVM = new LoginViewModel();
             EmployeeVM = new EmployeeViewModel();
 
-            // LoginUser에 ViewModel 넘겨줌
+            MainVM = new MainViewModel(LoginVM, EmployeeVM);
+            DataContext = MainVM;
+            MachineVM = new MachineViewModel();
+
             MainFrame.Navigate(new LoginUser(LoginVM));
 
 
@@ -88,6 +97,14 @@ namespace smartFactory_MillProcess.Views
             MainVM.IsMenuOpen = false;
           
             MainFrame.Navigate(new LoginUser(LoginVM));
+        }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove(); // 윈도우 드래그 이동
+            }
         }
     }
 }

@@ -6,49 +6,51 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginUser"
-      Background="#1b1f2b">
+      Background="Transparent">
 
-    <Grid>
-        <Border Width="450" Padding="30" CornerRadius="8"
+    <Border Background="#2b2f3a" CornerRadius="30" BorderBrush="#FF16A085" BorderThickness="1" SnapsToDevicePixels="True" Padding="0" Margin="0">
+        <Grid>
+            <Border Width="450" Padding="30" CornerRadius="8"
                 Background="#2b2f3a"
                 BorderBrush="#00c2ff" BorderThickness="1"
                 HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Border.Effect>
-                <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
-            </Border.Effect>
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+                </Border.Effect>
 
-            <StackPanel>
-                <TextBlock Text="압연 공정 시뮬레이터" 
+                <StackPanel>
+                    <TextBlock Text="압연 공정 시뮬레이터" 
                            Foreground="#00c2ff" 
                            FontSize="26" FontWeight="SemiBold" 
                            HorizontalAlignment="Center"
                            Margin="0,0,0,25"/>
 
-                <!-- 아이디 -->
-                <TextBlock Text="ID" Foreground="White" Margin="0,0,0,5"/>
-                <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"
+                    <!-- 아이디 -->
+                    <TextBlock Text="ID" Foreground="White" Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"
                          Height="30" Padding="5" 
                          Background="#1b1f2b" Foreground="White"
                          BorderBrush="#00c2ff" BorderThickness="1" 
                          Margin="0,0,0,15"/>
 
-                <!-- 비밀번호 -->
-                <TextBlock Text="Password" Foreground="White" Margin="0,0,0,5"/>
-                <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
+                    <!-- 비밀번호 -->
+                    <TextBlock Text="Password" Foreground="White" Margin="0,0,0,5"/>
+                    <PasswordBox PasswordChanged="PasswordBox_PasswordChanged"
                          Height="30" Padding="5"
                          Background="#1b1f2b" Foreground="White"
                          BorderBrush="#00c2ff" BorderThickness="1" 
                          Margin="0,0,0,25"/>
 
-                <!-- 로그인 버튼 -->
-                <Button Content="LOGIN"
+                    <!-- 로그인 버튼 -->
+                    <Button Content="LOGIN"
                         Height="35"
                         Background="#00c2ff" Foreground="#1b1f2b"
                         FontWeight="Bold"
                         BorderThickness="0"
                         Command="{Binding LoginCommand}"/>
-            </StackPanel>
-        </Border>
-    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Page>
