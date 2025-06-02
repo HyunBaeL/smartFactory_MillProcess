@@ -19,7 +19,7 @@ namespace smartFactory_MillProcess.ViewModels
 
         public MainViewModel()
         {
-            
+
         }
 
         [RelayCommand]
@@ -47,6 +47,17 @@ namespace smartFactory_MillProcess.ViewModels
         private void MoveEmployeeManagement()
         {
             MainWindow.Instance.Navigate(new EmployeeManagementPage());
+        }
+
+        [RelayCommand]
+        private void Letsgo()
+        {
+            MainWindow.Instance.Navigate(new furnacePage());
+        }
+        [RelayCommand]
+        private void Letsgo2()
+        {
+            MainWindow.Instance.Navigate(new RollingMachinePage());
         }
     }
 }

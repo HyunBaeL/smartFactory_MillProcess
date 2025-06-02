@@ -13,6 +13,8 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
     </Window.Resources>
+    
+
 
     <Grid>
         
@@ -22,6 +24,12 @@
                         Width="100"
                         Background="#2C3E50"
                         Visibility="{Binding IsMenuOpen, Converter={StaticResource BoolToVis}}">
+                <Button Height="10" Command="{Binding LetsgoCommand}">
+                    
+                </Button>
+                <Button Height="10" Command="{Binding Letsgo2Command}" Background="Black">
+
+                </Button>
 
                 <TextBlock Text="Menu" 
                            Foreground="#00c2ff" 
