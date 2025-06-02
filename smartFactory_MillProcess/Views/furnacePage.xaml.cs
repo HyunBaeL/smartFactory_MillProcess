@@ -32,10 +32,8 @@ namespace smartFactory_MillProcess.Views
         {
             InitializeComponent();
 
-            DataContext = new FurnaceViewModel();
-        }
-        private void MaterialComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+         
+        
             // 이벤트 처리 로직
             viewModel = new FurnaceViewModel
             {

@@ -17,9 +17,6 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis" /> <!-- bool 타입 처리 -->
     </Window.Resources>
     
-
-
-   
             <Grid>
                 <DockPanel LastChildFill="True">
                     <!-- 상단 고정 바 -->

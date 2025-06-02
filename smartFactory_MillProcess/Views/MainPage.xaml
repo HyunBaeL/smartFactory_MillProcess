@@ -64,15 +64,15 @@
                                 <TextBlock Text="보수 수리 여부" Grid.Column="0" Grid.Row="2" FontSize="15" Foreground="White" Margin="0,30,0,10"/>
                                 <TextBlock Text="전력 공급 안정성" Grid.Column="0" Grid.Row="3" FontSize="15" Foreground="White" Margin="0,30,0,10"/>
                                 <TextBlock Text="오염도 PM10" Grid.Column="0" Grid.Row="4" FontSize="15" Foreground="White" Margin="0,30,0,10"/>
-                                <TextBlock Text="{Binding MachineViewModel.Mc.Temperature, StringFormat={}{0}도}" 
+                            <TextBlock Text="{Binding MachineViewModel.MeasuredTemperature, StringFormat={}{0:F1} °C}" 
                                    Margin="0,30,0,10" Grid.Column="1" Grid.Row="0" FontSize="15" Foreground="White"/>
-                                <TextBlock Text="{Binding MachineViewModel.Mc.Humidity, StringFormat={}{0}%}" 
+                            <TextBlock Text="{Binding MachineViewModel.Humidity, StringFormat={}{0:F1} %}" 
                                    Margin="0,30,0,10" Grid.Column="1" Grid.Row="1" FontSize="15" Foreground="White"/>
-                                <TextBlock Text="{Binding MachineViewModel.Mc.RepareText}" 
+                                <TextBlock Text="{Binding MachineViewModel.RepareText}" 
                                    Margin="0,30,0,10" Grid.Column="1" Grid.Row="2" FontSize="15" Foreground="White"/>
-                                <TextBlock Text="{Binding MachineViewModel.Mc.DurationText}" 
+                            <TextBlock Text="{Binding MachineViewModel.DurationText}" 
                                    Margin="0,30,0,10" Grid.Column="1" Grid.Row="3" FontSize="15" Foreground="White"/>
-                                <TextBlock Text="{Binding MachineViewModel.Mc.Contamination_level}" 
+                            <TextBlock Text="{Binding MachineViewModel.Contamination_level, StringFormat={}{0:F1} PPM}" 
                                    Margin="0,30,0,10" Grid.Column="1" Grid.Row="4" FontSize="15" Foreground="White"/>
                             </Grid>
                         </StackPanel>
@@ -102,9 +102,9 @@
                             </lvc:CartesianChart.AxisX>
 
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis LabelFormatter="{Binding MachineViewModel.values}" MinValue="0">
+                            <lvc:Axis LabelFormatter="{Binding MachineViewModel.ValuesFormatter}" MinValue="0">
                                     <lvc:Axis.Separator>
-                                        <lvc:Separator Step="10"/>
+                                        <lvc:Separator Step="50"/>
                                     </lvc:Axis.Separator>
                                 </lvc:Axis>
                             </lvc:CartesianChart.AxisY>
