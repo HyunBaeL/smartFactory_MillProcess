@@ -1,2 +1,6 @@
 .vs/
 .config
+
+obj/
+*.cache
+*.AssemblyInfo.cs
