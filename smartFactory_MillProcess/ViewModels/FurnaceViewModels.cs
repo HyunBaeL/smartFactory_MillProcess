@@ -11,11 +11,10 @@ using smartFactory_MillProcess.Views;
 
 namespace smartFactory_MillProcess.ViewModels
 {
-<<<<<<< Updated upstream
+
     public partial class FurnaceViewModels : Page
     {
         public bool IsMenuOpen { get; set; }
-=======
 
     private Furnace furnaceModel = new Furnace();  // 🔹 Model 객체 생성
     private DispatcherTimer timer;  // 🔹 타이머 객체
@@ -218,7 +217,7 @@ namespace smartFactory_MillProcess.ViewModels
     private int CalculateX(int userTemperature)
     {
         return 10;
->>>>>>> Stashed changes
+
     }
 
     private Dictionary<string, (double k0, double Q)> FConst= new()
