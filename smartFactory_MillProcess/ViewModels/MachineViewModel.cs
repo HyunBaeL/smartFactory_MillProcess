@@ -144,6 +144,7 @@ namespace smartFactory_MillProcess.ViewModels
                             xLabel.RemoveAt(0);
                     });
 
+                    // 그래프 
                     // 그래프 업데이트
                     Application.Current.Dispatcher.Invoke(() =>
                     {
