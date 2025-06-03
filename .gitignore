@@ -1,6 +1,19 @@
+
+
+
 .vs/
+*.user
+*.suo
 .config
 
+# 빌드 아웃풋
+bin/
 obj/
+
+# 기타 캐시
 *.cache
 *.AssemblyInfo.cs
+*.pdb
+*.exe
+*.dll
+*.log
