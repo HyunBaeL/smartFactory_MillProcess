@@ -1674,11 +1674,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\codingOn24\\Desktop\\0530_1255\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
+      "projectUniqueName": "C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
       "projectName": "smartFactory_MillProcess",
-      "projectPath": "C:\\Users\\codingOn24\\Desktop\\0530_1255\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
+      "projectPath": "C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
       "packagesPath": "C:\\Users\\codingOn24\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\codingOn24\\Desktop\\0530_1255\\smartFactory_MillProcess\\obj\\",
+      "outputPath": "C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1748,5 +1748,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

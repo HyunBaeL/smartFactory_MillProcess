@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using ScottPlot.WPF;
 using System;
 using System.Diagnostics;
 using System.Windows;
@@ -30,6 +31,8 @@ using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Shell;
+using smartFactory_MillProcess.ViewModels;
+using smartFactory_MillProcess.Views;
 
 
 namespace smartFactory_MillProcess.Views {
@@ -52,7 +55,7 @@ namespace smartFactory_MillProcess.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;component/views/loginpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;V1.0.0.0;component/views/loginpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\LoginPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

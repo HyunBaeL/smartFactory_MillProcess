@@ -4,17 +4,30 @@
 winexe
 C#
 .cs
+<<<<<<< Updated upstream
 C:\Users\codingOn24\Desktop\0530_1255\smartFactory_MillProcess\obj\Debug\net8.0-windows\
+=======
+C:\Users\codingOn24\Desktop\0602_2300\smartFactory_MillProcess\obj\Debug\net8.0-windows\
+>>>>>>> Stashed changes
 smartFactory_MillProcess
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+<<<<<<< Updated upstream
 C:\Users\codingOn24\Desktop\0530_1255\smartFactory_MillProcess\App.xaml
 727046660
 
 271634731654
 2071100881896
 Views\EmployeeManagementPage.xaml;Views\furnacePage.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;Views\RollingMachinePage.xaml;
+=======
+C:\Users\codingOn24\Desktop\0602_2300\smartFactory_MillProcess\App.xaml
+81963488435
+
+30-536261750
+227-598740025
+Views\EmployeeManagementPage.xaml;Views\FurnaceWindow.xaml;Views\LoginPage.xaml;Views\MainPage.xaml;Views\MainWindow.xaml;Views\ProcessMainConductor.xaml;Views\RollingMachineWindow.xaml;Views\UserManagement.xaml;
+>>>>>>> Stashed changes
 
 False
 

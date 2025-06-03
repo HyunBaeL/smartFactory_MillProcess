@@ -22,9 +22,9 @@ namespace smartFactory_MillProcess.ViewModels
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    var furnacePage = new furnacePage();
-                    MainWindow.Instance.Navigate(furnacePage);
-                    MainWindow.Instance.FurnaceVM.IsMenuOpen = true;
+                    var FurnaceWindow = new FurnaceWindow();
+                    FurnaceWindow.Show();
+                    //MainWindow.Instance.FurnaceVM.IsMenuOpen = true;
                 });
             });
         }
@@ -56,10 +56,16 @@ namespace smartFactory_MillProcess.ViewModels
             {
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+<<<<<<< Updated upstream
                     var RollingMachinePage = new RollingMachinePage();
                     var furnacePage = new furnacePage();
                     MainWindow.Instance.Navigate(RollingMachinePage);
                     MainWindow.Instance.RollingMachineVM.IsMenuOpen = true;
+=======
+                    var RollingMachineWindow = new RollingMachineWindow();
+                    RollingMachineWindow.Show();
+                    //MainWindow.Instance.RollingMachineVM.IsMenuOpen = true;
+>>>>>>> Stashed changes
                 });
             });
         }

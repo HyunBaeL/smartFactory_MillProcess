@@ -61,7 +61,7 @@ namespace smartFactory_MillProcess.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;component/views/rollingmachinepage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;V1.0.0.0;component/views/rollingmachinepage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\RollingMachinePage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

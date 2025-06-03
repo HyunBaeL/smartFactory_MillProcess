@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CWqnAlebdiQ=",
+  "dgSpecHash": "H6aSTmflApg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\codingOn24\\Desktop\\0530_1255\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
+  "projectFilePath": "C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\smartFactory_MillProcess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\codingOn24\\.nuget\\packages\\bouncycastle.cryptography\\2.5.1\\bouncycastle.cryptography.2.5.1.nupkg.sha512",
     "C:\\Users\\codingOn24\\.nuget\\packages\\communitytoolkit.mvvm\\8.4.0\\communitytoolkit.mvvm.8.4.0.nupkg.sha512",
@@ -35,5 +35,12 @@
     "C:\\Users\\codingOn24\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\codingOn24\\.nuget\\packages\\zstdsharp.port\\0.8.5\\zstdsharp.port.0.8.5.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\codingOn24\\Desktop\\0602_2300\\smartFactory_MillProcess\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

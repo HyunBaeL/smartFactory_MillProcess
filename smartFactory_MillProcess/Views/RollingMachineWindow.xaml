@@ -1,0 +1,311 @@
+﻿<Window x:Class="smartFactory_MillProcess.Views.RollingMachineWindow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:smartFactory_MillProcess.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RollingMachineWindow"
+      Background="#1b1f2b">
+
+
+    <Grid>
+        <Border Width="770" Padding="15" CornerRadius="8"
+     Background="#2b2f3a"
+     BorderBrush="#00c2ff" BorderThickness="2"
+     HorizontalAlignment="Center" VerticalAlignment="Center" Height="430">
+
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+            </Border.Effect>
+
+            <Grid Width="700" Height="400">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <!-- 왼쪽 UI 요소 -->
+                    <ColumnDefinition Width="330"/>
+                    <!-- 오른쪽 그래프 공간 -->
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- 첫 번째 줄 -->
+                    <RowDefinition Height="Auto" MinHeight="60"/>
+                    <!-- 두 번째 줄 -->
+
+
+
+                    <RowDefinition/>
+                    <RowDefinition Height="0*"/>
+                    <!-- 세 번째 줄 (크기 조절 가능) -->
+                    <RowDefinition Height="Auto" MinHeight="75.747"/>
+                    <!-- ProgressBar 유지 -->
+                </Grid.RowDefinitions>
+
+                <!-- 왼쪽 UI -->
+                <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
+                    <Grid Width="341" Height="104">
+                        <Button Width="330"
+                                Command="{Binding StartRollSpeedUpdateCommand}"
+                            HorizontalAlignment="Center"
+                            Margin="0,50,0,11"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <Border Background="#00c2ff"
+                                CornerRadius="8"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                                <TextBlock Text="START"
+                                    
+                                    Width="330"
+                                    Foreground="#1b1f2b"
+                                    FontWeight="Bold"
+                                    FontSize="19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    TextAlignment="Center"
+                                    Padding="10" FontFamily="Swis721 Lt BT"/>
+
+                            </Border>
+                        </Button>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,0">
+                    <TextBlock Text="재료 : "  
+                        Width="84"  
+                        Foreground="#FFF8F1F1"  
+                        FontSize="25"  
+                        Height="32"  
+                        FontFamily="Noto Sans KR"
+                        VerticalAlignment="Center"/>
+                    <ComboBox x:Name="MaterialComboBox2"
+                              IsEditable="True"
+                        Width="160" Height="40"
+                        SelectedIndex="-1"
+                        Foreground="White"
+                        FontSize="26"
+                        BorderThickness="2"
+                        BorderBrush="#00C8FF"
+                        Background="#2b2f3a"
+                        FontFamily="Noto Sans KR"
+                        SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              ItemsSource="{Binding MaterialOptions}">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#2b2f3a"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#2b2f3a"/>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2b2f3a"/>
+
+                            <Style TargetType="ComboBox">
+                                <Setter Property="Background" Value="#2b2f3a"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <!-- 모든 상태에서 색상 통일 -->
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                    <Trigger Property="IsDropDownOpen" Value="True">
+                                        <Setter Property="Background" Value="#2b2f3a"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+
+                            <!-- 편집 가능한 텍스트박스 부분 스타일 -->
+                            <Style TargetType="TextBox">
+                                <Setter Property="Background" Value="#2b2f3a"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,1" Grid.RowSpan="2">
+
+                    <TextBlock Text="롤 속도 (RPM) : " Width="190" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
+
+                    <TextBlock  Width="150" Foreground="#FFF8F1F1" FontSize="26" Height="37"><InlineUIContainer>
+                        <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" Width="105" Height="30" Margin="0,5,0,0" Foreground="#FFF8F1F1" Background="#1b1f2b"/>
+                        </InlineUIContainer></TextBlock>
+
+                </StackPanel>
+
+                <!-- ProgressBar를 두 개의 Column에 걸쳐서 배치 -->
+                <ProgressBar Grid.ColumnSpan="2" Grid.Row="4" Padding="10" Margin="30,1,25,41"
+                    Minimum="0" Maximum="100"
+                    Foreground="#00c2ff" Background="#1b1f2b"
+                    Value="{Binding ProgressValue}" />
+
+                <TextBlock Grid.ColumnSpan="2" Grid.Row="3"
+                    Text="{Binding ProgressValue, StringFormat={}{0}%}" 
+                    Margin="200,7,0,0"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                                       TextAlignment="Center"
+                    Width="300"
+                    FontSize="15"
+                    Foreground="White" Height="20" FontFamily="Noto Sans KR" Grid.RowSpan="2"/>
+
+                <!-- 오른쪽 결과값 공간 -->
+                <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,39" Grid.RowSpan="3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" MinHeight="46"/>
+                            <!-- 첫 번째 줄 -->
+                            <RowDefinition Height="Auto" MinHeight="47"/>
+                            <!-- 두 번째 줄 -->
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="4*"/>
+                            <RowDefinition Height="4*"/>
+
+                        </Grid.RowDefinitions>
+
+                        <TextBlock 
+                            Text="두께(nm)"
+                            Grid.Row="0" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center"/>
+                        <TextBlock 
+                            Text="경도(HV)" 
+                            Margin="0,0,0,0" 
+                            Grid.RowSpan="1"
+                            Grid.Row="1" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="강도(Pa)" 
+                            Margin="0,0,0,0" 
+                            Grid.RowSpan="1"
+                            Grid.Row="2" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="압하율(%)" 
+                            Margin="0,0,0,0" 
+                            Grid.RowSpan="1"
+                            Grid.Row="3" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="불량률(%)" 
+                            Margin="0,0,0,0" 
+                            Grid.RowSpan="1"
+                            Grid.Row="4" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center">
+                        </TextBlock>
+                        <TextBlock 
+                            Text="불량 판별" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="26" TextAlignment="Center" Margin="0,-60,0,64"/>
+                        <TextBlock 
+                            Text="초기 두께(mm):" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="24" TextAlignment="Center" Margin="-362,29,324,-33" Grid.Row="4"/>
+                        <TextBox
+                            Text="{Binding inititialThickness,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" TextAlignment="Left" Foreground="White" Background="#2b2f3a"  FontFamily="Noto Sans KR" FontSize="26" Margin="-168,29,178,-33" Grid.Row="4"/>
+                        <TextBox
+                            Grid.Column="1"
+                            Grid.Row="0"
+                            Text="{Binding FinalThickness, StringFormat= :   {0:F3}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#1b1f2b"
+                            FontFamily="Noto Sans KR"
+                            FontSize="26"
+                            >
+
+
+
+                        </TextBox>
+                        <TextBox
+                            Grid.Column="1"
+                            Grid.Row="1"
+                            Text="{Binding Hardness, StringFormat= :   {0:F3}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#1b1f2b"
+                            FontFamily="Noto Sans KR"
+                            FontSize="26"
+                            >
+
+                        </TextBox>
+                        <TextBox
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Text="{Binding Strength, StringFormat= :   {0:F3}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#1b1f2b" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="26"
+                            >
+
+
+                        </TextBox>
+                        <TextBox
+                            Grid.Column="1"
+                            Grid.Row="3"
+                            Text="{Binding CompressionRatio, StringFormat= :   {0:F3}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#1b1f2b" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="26"
+                            >
+
+                        </TextBox>
+                        <TextBox
+                            Grid.Column="1"
+                            Grid.Row="4"
+                            Text="{Binding ErrorRatio, StringFormat= :   {0:F3}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#1b1f2b" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="26"
+                            >
+
+                        </TextBox>
+                        <TextBox
+                            Text="{Binding DefectResult}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#2b2f3a" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="26" Grid.ColumnSpan="2" Margin="150,-60,0,64"
+                            />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+                    
+
+
+
+
+
+                            
+                            
+                        
+
+
+
+
+
+
+
+
+
+                            
+                        
+
+
+                
+                    
+

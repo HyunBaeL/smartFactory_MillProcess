@@ -53,7 +53,7 @@ namespace smartFactory_MillProcess.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;component/views/mainpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;V1.0.0.0;component/views/mainpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\MainPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -48,5 +48,41 @@ namespace smartFactory_MillProcess.ViewModels
         {
             MainWindow.Instance.Navigate(new EmployeeManagementPage());
         }
+<<<<<<< Updated upstream
+=======
+
+        [RelayCommand]
+        private void CloseWindow()
+        {
+            Application.Current.Shutdown(); // 앱 종료 (MainWindow 닫기)
+        }
+
+        [RelayCommand]
+        private void MinimizeWindow()
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        [RelayCommand]
+        private void MaximizeRestoreWindow()
+        {
+            var window = Application.Current.MainWindow;
+            window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+        [RelayCommand]
+        private void Letsgo()
+        {
+            var FurnaceWindow = new FurnaceWindow();
+            FurnaceWindow.Show();
+        }
+        [RelayCommand]
+        private void Letsgo2()
+        {
+            var RollingMachineWindow = new RollingMachineWindow();
+            RollingMachineWindow.Show();
+        }
+
+>>>>>>> Stashed changes
     }
 }

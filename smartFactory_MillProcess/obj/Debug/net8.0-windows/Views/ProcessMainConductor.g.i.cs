@@ -77,7 +77,7 @@ namespace smartFactory_MillProcess.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;component/views/processmainconductor.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/smartFactory_MillProcess;V1.0.0.0;component/views/processmainconductor.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ProcessMainConductor.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
