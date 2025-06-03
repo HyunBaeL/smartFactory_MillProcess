@@ -57,8 +57,8 @@ namespace smartFactory_MillProcess.ViewModels
                 Application.Current.Dispatcher.Invoke(() =>
                 {
 
-                    var RollingMachinePage = new RollingMachinePage();
-                    var furnacePage = new furnacePage();
+                    // var RollingMachinePage = new RollingMachinePage();
+                    // var furnacePage = new furnacePage();
                     // MainWindow.Instance.Navigate(RollingMachinePage);
                     // MainWindow.Instance.RollingMachineVM.IsMenuOpen = true;
 
