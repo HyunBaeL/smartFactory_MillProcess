@@ -38,7 +38,7 @@ public partial class FurnaceViewModel : ObservableObject
     private int generatedTemperature;  // 🔹 UI에 자동 반영되는 속성 (난수 온도)
 
     [ObservableProperty]
-    private double averageTemperature;  // 🔹 UI에 자동 반영되는 속성 (평균 온도)
+    public double averageTemperature;  // 🔹 UI에 자동 반영되는 속성 (평균 온도)
     [ObservableProperty]
     private string userInput;
     [ObservableProperty]
@@ -109,6 +109,7 @@ public partial class FurnaceViewModel : ObservableObject
                 MessageBox.Show("재료를 선택해주세요");
                 break;
         }
+        App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
     }
 
     
@@ -146,14 +147,14 @@ public partial class FurnaceViewModel : ObservableObject
         }
     }
     
-    private void UpdateTemperature(object? sender, EventArgs e)
+    public void UpdateTemperature(object? sender, EventArgs e)
     {
-        if (elapsedSeconds <= 60)
+        if (elapsedSeconds <= 7)
         {
             int X = CalculateX(DisplayTemperature);
             GeneratedTemperature = random.Next(DisplayTemperature - X, DisplayTemperature + X + 1);
 
-            if (furnaceModel.TemperatureHistory.Count >= 60)
+            if (furnaceModel.TemperatureHistory.Count >= 7)
             {
                 furnaceModel.TemperatureHistory.RemoveAt(0);
             }
@@ -161,7 +162,7 @@ public partial class FurnaceViewModel : ObservableObject
 
             furnaceModel.TimeHistory.Add(elapsedSeconds);
             furnaceModel.TemperatureHistory.Add(GeneratedTemperature);
-            ProgressValue = (elapsedSeconds * 100) / 60;
+            ProgressValue = (elapsedSeconds * 100) / 7;
             elapsedSeconds++;
             UpdatePlot();
 
@@ -173,6 +174,9 @@ public partial class FurnaceViewModel : ObservableObject
             AverageTemperature = CalculateAverageTemperature();
 
             oxideScale = CalcOxideScale(AverageTemperature, elapsedSeconds);
+
+            App.RollingVM.AverageTemperature = AverageTemperature;  // 평균 온도 전달
+            App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
         }
     }
    
@@ -195,7 +199,7 @@ public partial class FurnaceViewModel : ObservableObject
         );
         plt.XLabel("Seconds(s)");
         plt.YLabel("Temperature(°C)");
-        plt.Axes.SetLimitsX(0, 60);
+        plt.Axes.SetLimitsX(0, 7);
         plt.Axes.SetLimitsY(MinAllowedTemp - 30, MaxAllowedTemp + 30);
 
 

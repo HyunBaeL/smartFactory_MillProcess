@@ -12,6 +12,7 @@ namespace smartFactory_MillProcess
     {
         public static FurnaceViewModel FurnaceVM { get; } = new FurnaceViewModel();
         public static RollingMachineViewModel RollingVM { get; } = new RollingMachineViewModel();
+
     }
 
 }

@@ -10,6 +10,7 @@ using smartFactory_MillProcess.Views;
 
 namespace smartFactory_MillProcess.ViewModels
 {
+    
     public partial class MainConductorViewModel : ObservableObject
     {
 
