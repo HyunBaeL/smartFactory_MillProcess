@@ -80,48 +80,14 @@
                         Height="32"  
                         FontFamily="Noto Sans KR"
                         VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MaterialComboBox2"
-                              IsEditable="True"
+                    <TextBox Text="{Binding SelectedMaterial, Mode=OneWay}" IsReadOnly="True"
                         Width="160" Height="40"
-                        SelectedIndex="-1"
-                        Foreground="Black"
+                        Foreground="White"
                         FontSize="26"
                         BorderThickness="2"
                         BorderBrush="#00C8FF"
                         Background="#2b2f3a"
-                        FontFamily="Noto Sans KR"
-                        SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                              ItemsSource="{Binding MaterialOptions}">
-                        <ComboBox.Resources>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="#2b2f3a"/>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#2b2f3a"/>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="#2b2f3a"/>
-
-                            <Style TargetType="ComboBox">
-                                <Setter Property="Background" Value="#2b2f3a"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <!-- 모든 상태에서 색상 통일 -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#2b2f3a"/>
-                                    </Trigger>
-                                    <Trigger Property="IsFocused" Value="True">
-                                        <Setter Property="Background" Value="#2b2f3a"/>
-                                    </Trigger>
-                                    <Trigger Property="IsDropDownOpen" Value="True">
-                                        <Setter Property="Background" Value="#2b2f3a"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-
-                            <!-- 편집 가능한 텍스트박스 부분 스타일 -->
-                            <Style TargetType="TextBox">
-                                <Setter Property="Background" Value="#2b2f3a"/>
-                                <Setter Property="Foreground" Value="White"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </ComboBox.Resources>
-                    </ComboBox>
+                        FontFamily="Noto Sans KR"/>
                 </StackPanel>
 
                 <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,1" Grid.RowSpan="2">
@@ -278,6 +244,17 @@
                             Background="#2b2f3a" 
                             FontFamily="Noto Sans KR"
                             FontSize="26" Grid.ColumnSpan="2" Margin="150,-60,0,64"
+                            />
+                        <TextBlock 
+                            Text="현재 온도(°C)" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="18" TextAlignment="Center" Margin="-362,-60,382,85"/>
+                        <TextBox
+                            Text="{Binding AverageTemperature, Mode=OneWay, StringFormat={}{0:F1}}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#2b2f3a" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="18" Margin="-226,-60,234,85"
                             />
                     </Grid>
                 </Border>

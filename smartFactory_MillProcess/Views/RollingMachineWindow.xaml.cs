@@ -20,13 +20,18 @@ namespace smartFactory_MillProcess.Views
     /// </summary>
     public partial class RollingMachineWindow : Window
     {
-        public RollingMachineViewModel RMVM;
+        // public RollingMachineViewModel RMVM;
         public RollingMachineWindow()
         {
             InitializeComponent();
-            RMVM = new RollingMachineViewModel();
 
-            DataContext = RMVM;
+            // RMVM = new RollingMachineViewModel();
+            //DataContext = RMVM;
+
+
+            //App.RollingVM.AverageTemperatureFromFurnace();
+            App.RollingVM.SelectedMaterial = App.FurnaceVM.SelectedMaterial;
+            DataContext = App.RollingVM;
         }
 
     }

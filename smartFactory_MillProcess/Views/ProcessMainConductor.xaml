@@ -70,7 +70,7 @@
                                 HorizontalAlignment="Left"
                                 Margin="40,0,0,0"
                                 FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
-                        <Button Content="압연기 상태"
+                            <Button Content="압연기 상태"
                                 Command="{Binding RollStatusViewCommand}"
                                 Width="120" Height="35"
                                 Grid.Column="1"

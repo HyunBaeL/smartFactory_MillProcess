@@ -25,6 +25,7 @@ namespace smartFactory_MillProcess.Views
         {
             InitializeComponent();
             DataContext = new MainConductorViewModel();
+            
         }
     }
 }

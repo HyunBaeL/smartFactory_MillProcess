@@ -19,5 +19,6 @@ namespace smartFactory_MillProcess.Models
         public int CompleteCount { get; set; }
         public string UserInput { get; set; }
 
+        //public double AverageTemperature { get; set; }
     }
 }

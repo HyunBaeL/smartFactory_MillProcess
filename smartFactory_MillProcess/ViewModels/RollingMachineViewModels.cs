@@ -63,9 +63,14 @@ namespace smartFactory_MillProcess.ViewModels
         // app.xaml.cs 에서 온도 전달받음
         public void AverageTemperatureFromFurnace()
         {
-            double averageTemperature = App.FurnaceVM.AverageTemperature;
+            AverageTemperature = App.FurnaceVM.AverageTemperature;
 
         }
+        //// app.xaml.cs 에서 재료 선택 전달받음
+        //partial void OnSelectedMaterialChanged(string value)
+        //{
+        //    App.FurnaceVM.SelectedMaterial = value;
+        //}
 
         public ObservableCollection<string> MaterialOptions { get; } = new ObservableCollection<string>
         {
@@ -86,31 +91,32 @@ namespace smartFactory_MillProcess.ViewModels
 
         partial void OnSelectedMaterialChanged(string value)
         {
+            App.FurnaceVM.SelectedMaterial = value;
+
             switch (value)
             {
                 case "Al5082":
-                    MinAllowedSped = 1;
+                    MinAllowedSped = 5;
                     MaxAllowedSped = 10;
                     InitialThickness = 300;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SUS304":
                     MinAllowedSped = 1;
-                    MaxAllowedSped = 10;
+                    MaxAllowedSped = 3;
                     InitialThickness = 200;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SM45C":
-                    MinAllowedSped = 1;
-                    MaxAllowedSped = 10;
+                    MinAllowedSped = 2;
+                    MaxAllowedSped = 4;
                     InitialThickness = 270;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 default:
                     MinAllowedSped = 0;
                     MaxAllowedSped = 0;
                     InitialThickness = 0;
-                    MessageBox.Show("재료를 선택해주세요");
                     break;
             }
         }
@@ -137,15 +143,15 @@ namespace smartFactory_MillProcess.ViewModels
             }
             else
             {
-                MessageBox.Show($"⚠ 재료를 선택하고 {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
+                MessageBox.Show($"⚠ Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
             }
         }
 
         private void UpdateRollSpeed(object? sender, EventArgs e)
         {
-            if (elapsedSeconds <= 60)
+            if (elapsedSeconds <= 7)
             {
-                ProgressValue = (elapsedSeconds * 100) / 60;
+                ProgressValue = (elapsedSeconds * 100) / 7;
                 elapsedSeconds++;
             }
             else
@@ -169,20 +175,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
         }
 
-        //private double CaculateFinalThickness()
-        //{
-        //    return 15;
-        //}
-
-        //private double CaculateHardness()
-        //{
-        //    return 30;
-        //}
-
-        //private double CaculateStrength()
-        //{
-        //    return 40;
-        //}
+        
 
         //private double CaculateCompressionRatio()
         //{
@@ -255,7 +248,7 @@ namespace smartFactory_MillProcess.ViewModels
             double averageTempKelvin = AverageTemperature + 273.15;
             if (RConst.TryGetValue(SelectedMaterial, out var constants))
             {
-                return CompressionRatio = (((initialThickness - finalThickness) / initialThickness) * 100);
+                return CompressionRatio = (initialThickness - finalThickness) / initialThickness * 100;
             }
             return 0;
         }
@@ -267,7 +260,7 @@ namespace smartFactory_MillProcess.ViewModels
             if (RConst.TryGetValue(SelectedMaterial, out var constants))
             {
                 // 불량 판별 로직
-                if (CompressionRatio < 99.6 || CompressionRatio > 79.6)
+                if (CompressionRatio < 20 || CompressionRatio > 40)
                 {
                     return true; // 불량 발생
                 }
