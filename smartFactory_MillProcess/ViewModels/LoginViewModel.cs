@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using smartFactory_MillProcess.Views;
+using System.Windows.Input;
 
 namespace smartFactory_MillProcess.ViewModels
 {
@@ -88,6 +89,27 @@ namespace smartFactory_MillProcess.ViewModels
             Id = string.Empty;
             Password = string.Empty;
         }
+
+        [RelayCommand]
+        private void CloseWindow()
+        {
+            Application.Current.Shutdown(); // 앱 종료 (MainWindow 닫기)
+        }
+
+        [RelayCommand]
+        private void MinimizeWindow()
+        {
+            Application.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+
+        [RelayCommand]
+        private void MaximizeRestoreWindow()
+        {
+            var window = Application.Current.MainWindow;
+            window.WindowState = window.WindowState == WindowState.Normal ? WindowState.Maximized : WindowState.Normal;
+        }
+
+       
 
     }
 }

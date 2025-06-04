@@ -25,17 +25,28 @@ namespace smartFactory_MillProcess.ViewModels
 
         }
 
+        public MainViewModel(MachineViewModel machineVM)
+        {
+            MachineViewModel = machineVM;
+        }
+
         public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM)
         {
             LoginViewModel = loginVM;
             EmployeeViewModel = employeeVM;
-
+            
         }
 
         [RelayCommand]
         private void MoveProcessMainConductor()
         {
             MainWindow.Instance.Navigate(new ProcessMainConductor());
+        }
+
+        [RelayCommand]
+        private void MoveMainDashboard()
+        {
+            MainWindow.Instance.Navigate(new MainPage(this));
         }
 
         [RelayCommand]
@@ -81,8 +92,16 @@ namespace smartFactory_MillProcess.ViewModels
         [RelayCommand]
         private void Letsgo()
         {
-            MainWindow.Instance.Navigate(new furnacePage());
+            var FurnaceWindow = new FurnaceWindow();
+            FurnaceWindow.Show();
         }
-       
+
+        [RelayCommand]
+        private void Letsgo2()
+        {
+            var RollingMachineWindow = new RollingMachineWindow();
+            RollingMachineWindow.Show();
+        }
+
     }
 }

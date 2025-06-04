@@ -10,27 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using smartFactory_MillProcess.ViewModels;
 
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// Interaction logic for MainPage.xaml
+    /// Interaction logic for RollingMachineWindow.xaml
     /// </summary>
-    public partial class MainPage : Page
+    public partial class RollingMachineWindow : Window
     {
-        public MainPage()
+        public RollingMachineViewModel RMVM;
+        public RollingMachineWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
-        }
+            RMVM = new RollingMachineViewModel();
 
-        public MainPage(MainViewModel mvm)
-        {
-            InitializeComponent();
-            DataContext = mvm;
+            DataContext = RMVM;
         }
 
     }

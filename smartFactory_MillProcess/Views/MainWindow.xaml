@@ -52,19 +52,19 @@
                         Cursor="Hand" />
                 <!-- 최소화 버튼 -->
                 <Button Grid.Column="3" Content="─"
-            Width="40" Height="30" Margin="2"
-            Background="Transparent" Foreground="White" BorderBrush="Transparent"
-            FontSize="14" FontWeight="Bold"
-            Command="{Binding MinimizeWindowCommand}"
-            Cursor="Hand"/>
+                        Width="40" Height="30" Margin="2"
+                        Background="Transparent" Foreground="White" BorderBrush="Transparent"
+                        FontSize="14" FontWeight="Bold"
+                        Command="{Binding MinimizeWindowCommand}"
+                        Cursor="Hand"/> 
 
                 <!-- 최대화/복원 버튼 -->
                 <Button Grid.Column="4" Content="▭"
-            Width="40" Height="30" Margin="2"
-            Background="Transparent" Foreground="White" BorderBrush="Transparent"
-            FontSize="14" FontWeight="Bold"
-            Command="{Binding MaximizeRestoreWindowCommand}"
-            Cursor="Hand"/>
+                        Width="40" Height="30" Margin="2"
+                        Background="Transparent" Foreground="White" BorderBrush="Transparent"
+                        FontSize="14" FontWeight="Bold"
+                        Command="{Binding MaximizeRestoreWindowCommand}"
+                        Cursor="Hand"/>
             </Grid>
 
                     <!-- 왼쪽 고정 메뉴바 -->
@@ -78,14 +78,17 @@
                                FontSize="18" 
                                Margin="10"
                                HorizontalAlignment="Center"/>
-                
+
                 <Button Content="대시보드" 
+                        Cursor="Hand"
+                            Command="{Binding MoveMainDashboardCommand}"
                             Margin="10" 
                             Padding="5"
                             Background="#34495E" 
                             Foreground="White" 
                             BorderBrush="Transparent"/>
                         <Button Content="사원 관리"
+                                Cursor="Hand"
                             Command="{Binding MoveEmployeeManagementCommand}"
                             Margin="10" 
                             Padding="5"
@@ -93,6 +96,7 @@
                             Foreground="White" 
                             BorderBrush="Transparent"/>
                         <Button Content="뒤로가기"
+                                Cursor="Hand"
                             Command="{Binding GoBackCommand}"
                             Margin="10" 
                             Padding="5"
@@ -100,6 +104,7 @@
                             Foreground="White" 
                             BorderBrush="Transparent"/>
                         <Button Content="로그 아웃"
+                                Cursor="Hand"
                             Command="{Binding LogoutCommand}"
                             Margin="10" 
                             Padding="5"
