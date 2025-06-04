@@ -115,6 +115,7 @@
 
                 <!-- 작업 시작 버튼 -->
                 <Button Grid.Row="2" Content="PROCESS START" Command="{Binding MoveProcessMainConductorCommand}"
+                        Cursor="Hand"
                     Width="250" Height="80" Margin="0,70,0,0"
                     HorizontalAlignment="Center"
                     Background="#00c2ff" Foreground="#1b1f2b"

@@ -38,5 +38,13 @@ namespace smartFactory_MillProcess.Views
                 vm.Password = ((PasswordBox)sender).Password;
             }
         }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                Window.GetWindow(this)?.DragMove();
+            }
+        }
     }
 }

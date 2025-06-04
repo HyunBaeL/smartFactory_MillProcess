@@ -25,17 +25,28 @@ namespace smartFactory_MillProcess.ViewModels
 
         }
 
+        public MainViewModel(MachineViewModel machineVM)
+        {
+            MachineViewModel = machineVM;
+        }
+
         public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM)
         {
             LoginViewModel = loginVM;
             EmployeeViewModel = employeeVM;
-
+            
         }
 
         [RelayCommand]
         private void MoveProcessMainConductor()
         {
             MainWindow.Instance.Navigate(new ProcessMainConductor());
+        }
+
+        [RelayCommand]
+        private void MoveMainDashboard()
+        {
+            MainWindow.Instance.Navigate(new MainPage(this));
         }
 
         [RelayCommand]

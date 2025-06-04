@@ -52,13 +52,13 @@ namespace smartFactory_MillProcess.Views
 
             LoginVM = new LoginViewModel();
             EmployeeVM = new EmployeeViewModel();
-            furnaceVM = new FurnaceViewModel();
-            rollingMachineVM = new RollingMachineViewModel();
+            //furnaceVM = new FurnaceViewModel();
+            //rollingMachineVM = new RollingMachineViewModel();
 
             MainVM = new MainViewModel(LoginVM, EmployeeVM);
             DataContext = MainVM;
             MachineVM = new MachineViewModel();
-            EmployeeVM = new EmployeeViewModel();
+            //EmployeeVM = new EmployeeViewModel();
             FurnaceVM = new FurnaceViewModel();
             RollingMachineVM = new RollingMachineViewModel();
 
