@@ -47,6 +47,8 @@ public partial class FurnaceViewModel : ObservableObject
     private string selectedMaterial;
     [ObservableProperty]
     private int minAllowedTemp = 0;
+    [ObservableProperty]
+    private double oxideScale;  // 🔹 산화 스케일
 
     [ObservableProperty]
     private int maxAllowedTemp = 0;
@@ -62,9 +64,9 @@ public partial class FurnaceViewModel : ObservableObject
 
     public ObservableCollection<string> MaterialOptions { get; } = new ObservableCollection<string>
     {
-        "알루미늄",
-        "스테인리스",
-        "탄소강"
+        "Al5082",  // 알루미늄
+        "SUS304",  // 스테인리스
+        "SM45C"    // 탄소강
     };
 
 
@@ -86,17 +88,17 @@ public partial class FurnaceViewModel : ObservableObject
         // 재료 선택 시 온도 범위 변경 (예: 이 정보를 기준으로 UI 검증에 사용)
         switch (value)
         {
-            case "알루미늄":
+            case "Al5082":
                 MinAllowedTemp = 900;
                 MaxAllowedTemp = 1100;
                 MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
                 break;
-            case "스테인리스":
+            case "SUS304":
                 MinAllowedTemp = 1100;
                 MaxAllowedTemp = 1200;
                 MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
                 break;
-            case "탄소강":
+            case "SM45C":
                 MinAllowedTemp = 1200;
                 MaxAllowedTemp = 1300;
                 MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
@@ -169,6 +171,8 @@ public partial class FurnaceViewModel : ObservableObject
         {
             timer.Stop();
             AverageTemperature = CalculateAverageTemperature();
+
+            oxideScale = CalcOxideScale(AverageTemperature, elapsedSeconds);
         }
     }
    
@@ -207,6 +211,29 @@ public partial class FurnaceViewModel : ObservableObject
     private int CalculateX(int userTemperature)
     {
         return 10;
+    }
+
+    private Dictionary<string, (double k0, double Q)> FConst = new()
+    {
+        {"Al5082", (1.2e-6, 137000) },  // 알루미늄
+        {"SUS304", (8.5e-7, 172000) },  // 스테인리스
+        {"SM45C", (2.1e-6, 156000) }    // 탄소강
+    };
+
+    private double CalcOxideScale(double averageTempCelsius, int holdingTimeSeconds)
+    {
+        double averageTempKelvin = averageTempCelsius + 273.15;
+
+        if (FConst.TryGetValue(SelectedMaterial, out var constants))
+        {
+            double k0 = constants.k0;
+            double Q = constants.Q;
+            double rawvalue = k0 * Math.Exp(-Q / (8.314 * averageTempKelvin)) * Math.Sqrt(holdingTimeSeconds);
+
+            oxideScale = rawvalue * 1e9;
+        }
+
+        return 0;
     }
 }
 
