@@ -14,6 +14,9 @@
     <Compile Update="Views\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\MemberAddDeletePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ProcessMainConductor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

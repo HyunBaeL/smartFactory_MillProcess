@@ -187,7 +187,7 @@ public partial class FurnaceViewModel : ObservableObject
         plt.Add.Scatter(
             xs: furnaceModel.TimeHistory.ToArray(),
             ys: furnaceModel.TemperatureHistory.ToArray(),
-            color: Colors.DarkOrange
+            color: Colors.Blue
         );
         plt.XLabel("Seconds(s)");
         plt.YLabel("Temperature(°C)");
