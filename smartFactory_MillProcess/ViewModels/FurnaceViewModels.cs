@@ -229,7 +229,7 @@ public partial class FurnaceViewModel : ObservableObject
             double k0 = constants.k0;
             double Q = constants.Q;
             double rawvalue = k0 * Math.Exp(-Q / (8.314 * averageTempKelvin)) * Math.Sqrt(holdingTimeSeconds);
-
+            
             oxideScale = rawvalue * 1e9;
         }
 

@@ -33,6 +33,5 @@ namespace smartFactory_MillProcess.Views
             DataContext = mvm;
         }
 
-        
     }
 }
