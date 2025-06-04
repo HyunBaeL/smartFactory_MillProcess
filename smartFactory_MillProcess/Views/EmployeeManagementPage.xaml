@@ -9,7 +9,7 @@
       Title="EmployeeManagementPage"
       >
 
-    <Grid Background="White">
+    <Grid Background="#2b2f3a">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <!-- DataGrid가 차지하는 영역 -->
@@ -17,9 +17,24 @@
             <!-- 버튼 높이만큼 -->
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" ItemsSource="{Binding Emps}" AutoGenerateColumns="False" Margin="20,10,20,10" >
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Emps}" AutoGenerateColumns="False" Margin="20,10,20,10" Background="#1b1f2b" 
+                  Foreground="Black"
+          RowBackground="White"
+          AlternatingRowBackground="White">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="White"/>
+                    <!-- 헤더 배경색 -->
+                    <Setter Property="Foreground" Value="Black"/>
+                    <!-- 헤더 글자색 -->
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="1,1,1,3"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="사번" Binding="{Binding EmployeeId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="사번" Binding="{Binding EmployeeId}" IsReadOnly="True" />
                 <DataGridTextColumn Header="사원코드" Binding="{Binding EmployeeCode}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="이름" Binding="{Binding Name}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -42,7 +57,7 @@
                     Width="120" Height="40" Cursor="Hand">
                 <Button.Style>
                     <Style TargetType="Button">
-                        <Setter Property="Background" Value="#FF007ACC"/>
+                        <Setter Property="Background" Value="#00c2ff"/>
                         <Setter Property="Foreground" Value="Black"/>
                         <Setter Property="BorderBrush" Value="#FF005A9E"/>
                         <Setter Property="BorderThickness" Value="1"/>
@@ -53,6 +68,46 @@
                                             BorderBrush="{TemplateBinding BorderBrush}" 
                                             BorderThickness="{TemplateBinding BorderThickness}" 
                                             CornerRadius="5" >
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF005A9E"/>
+                                <Setter Property="BorderBrush" Value="#FF003F6B"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#FF003F6B"/>
+                                <Setter Property="BorderBrush" Value="#FF002A45"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFB0B0B0"/>
+                                <Setter Property="Foreground" Value="#FF6D6D6D"/>
+                                <Setter Property="BorderBrush" Value="#FF8A8A8A"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Content="사원 등록/삭제" Command="{Binding OpenMemberAddDeleteWindowCommand}"
+        HorizontalAlignment="Left" VerticalAlignment="Bottom"
+        Padding="12,6" FontWeight="ExtraBlack" FontSize="15"
+        Width="120" Height="40" Cursor="Hand">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#00c2ff"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="BorderBrush" Value="#FF005A9E"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="5" >
                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                 </ControlTemplate>

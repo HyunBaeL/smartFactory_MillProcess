@@ -95,6 +95,7 @@ namespace smartFactory_MillProcess.ViewModels
             var FurnaceWindow = new FurnaceWindow();
             FurnaceWindow.Show();
         }
+
         [RelayCommand]
         private void Letsgo2()
         {
