@@ -5,7 +5,7 @@
     <Compile Update="Views\EmployeeManagementPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\furnacePage.xaml.cs">
+    <Compile Update="Views\FurnaceWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\LoginPage.xaml.cs">
@@ -17,7 +17,7 @@
     <Compile Update="Views\ProcessMainConductor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\RollingMachinePage.xaml.cs">
+    <Compile Update="Views\RollingMachineWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
