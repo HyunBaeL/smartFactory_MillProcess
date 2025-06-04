@@ -10,28 +10,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using smartFactory_MillProcess.ViewModels;
 
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// RollingMachinePage.xaml에 대한 상호 작용 논리
+    /// Interaction logic for FurnaceWindow.xaml
     /// </summary>
-    public partial class RollingMachinePage : Page
+    public partial class FurnaceWindow : Window
     {
-        public RollingMachineViewModel RMVM;
-        public RollingMachinePage()
+        public FurnaceViewModel viewModel;
+        public FurnaceViewModel ViewModel { get; set; }
+        public FurnaceWindow()
         {
             InitializeComponent();
-            RMVM = new RollingMachineViewModel();
-           
 
-            this.DataContext = RMVM;
-            
+            // 이벤트 처리 로직
+            viewModel = new FurnaceViewModel
+            {
+                plotControl = PlotControl
+            };
+
+            this.DataContext = viewModel;
         }
-
-        
     }
 }
