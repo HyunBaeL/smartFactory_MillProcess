@@ -28,7 +28,7 @@ namespace smartFactory_MillProcess.ViewModels
         private Random random = new Random();  // 🔹 난수 생성기
 
         [ObservableProperty]
-        private int rollSpeed;
+        private double rollSpeed;
         [ObservableProperty]
         private double initialThickness;
         [ObservableProperty]
@@ -44,7 +44,9 @@ namespace smartFactory_MillProcess.ViewModels
         [ObservableProperty]
         private int errors = 1;
         [ObservableProperty]
-        private int completeCount= 2;
+        private int completeCount = 2;
+        [ObservableProperty]
+        private double averageTemperature;
 
         [ObservableProperty]
         private string userInput;
@@ -58,11 +60,18 @@ namespace smartFactory_MillProcess.ViewModels
         [ObservableProperty]
         private int maxAllowedSped = 0;
 
+        // app.xaml.cs 에서 온도 전달받음
+        public void AverageTemperatureFromFurnace()
+        {
+            double averageTemperature = App.FurnaceVM.AverageTemperature;
+
+        }
+
         public ObservableCollection<string> MaterialOptions { get; } = new ObservableCollection<string>
         {
-            "알루미늄",
-            "스테인리스",
-            "탄소강"
+            "Al5082",
+            "SUS304",
+            "SM45C"
         };
 
         public RollingMachineViewModel()
@@ -79,24 +88,28 @@ namespace smartFactory_MillProcess.ViewModels
         {
             switch (value)
             {
-                case "알루미늄":
-                    MinAllowedSped = 900;
-                    MaxAllowedSped = 1100;
+                case "Al5082":
+                    MinAllowedSped = 1;
+                    MaxAllowedSped = 10;
+                    InitialThickness = 300;
                     MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
-                case "스테인리스":
-                    MinAllowedSped = 1100;
-                    MaxAllowedSped = 1200;
+                case "SUS304":
+                    MinAllowedSped = 1;
+                    MaxAllowedSped = 10;
+                    InitialThickness = 200;
                     MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
-                case "탄소강":
-                    MinAllowedSped = 1200;
-                    MaxAllowedSped = 1300;
+                case "SM45C":
+                    MinAllowedSped = 1;
+                    MaxAllowedSped = 10;
+                    InitialThickness = 270;
                     MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 default:
                     MinAllowedSped = 0;
                     MaxAllowedSped = 0;
+                    InitialThickness = 0;
                     MessageBox.Show("재료를 선택해주세요");
                     break;
             }
@@ -124,7 +137,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
             else
             {
-                MessageBox.Show($"⚠ {MinAllowedSped}~{MaxAllowedSped}도 사이의 숫자를 입력하세요!");
+                MessageBox.Show($"⚠ 재료를 선택하고 {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
             }
         }
 
@@ -139,56 +152,139 @@ namespace smartFactory_MillProcess.ViewModels
             {
                 timer.Stop();
                 CompleteCount++;
-                
-                FinalThickness = CaculateFinalThickness();
-                Hardness = CaculateHardness();
-                Strength = CaculateStrength();
-                CompressionRatio = CaculateCompressionRatio();
-                
-                if (CheckoutError() == true)
-                {
-                    Errors++;
-                }
-                ErrorRatio = CaculateErrorRatio();
-                MessageBox.Show($"{CompleteCount} Errors: {Errors}");
-                
+
+                FinalThickness = CalcFinalThickness(RollSpeed,AverageTemperature);
+                Hardness = CalcHardness(AverageTemperature);
+                Strength = CalcStrength(AverageTemperature);
+                CompressionRatio = CalcCompressionRatio(InitialThickness, FinalThickness);
+
+                //if (CheckoutError() == true)
+                //{
+                //    Errors++;
+                //}
+                //ErrorRatio = CaculateErrorRatio();
+                //MessageBox.Show($"{CompleteCount} Errors: {Errors}");
+
+                DefectResult = CheckError(RollSpeed, AverageTemperature) ? "불량" : "양호";
             }
         }
 
-        private double CaculateFinalThickness()
+        //private double CaculateFinalThickness()
+        //{
+        //    return 15;
+        //}
+
+        //private double CaculateHardness()
+        //{
+        //    return 30;
+        //}
+
+        //private double CaculateStrength()
+        //{
+        //    return 40;
+        //}
+
+        //private double CaculateCompressionRatio()
+        //{
+        //    return 13;
+        //}
+        //private double CaculateErrorRatio()
+        //{
+        //    ErrorRatio = (double)Errors / CompleteCount;
+        //    return ErrorRatio;
+        //}
+        //private bool CheckoutError()
+        //{
+        //    return true;
+        //}
+
+        private Dictionary<string, (double A, double B, double c, double D, double H0, double k, double σref, double k2, double Tref)> RConst = new()
         {
-            return 15;
+            { "Al5082", (0.65, 0.3, 0.0025, 0.037, 80, 0.0024, 150, 0.0025, 298) },   // 알루미늄
+            { "SUS304", (0.6, 0.35, 0.0028, 0.012, 210, 0.0026, 280, 0.002, 298) },   // 스테인리스
+            { "SM45C",  (0.55, 0.4, 0.003, 0.02, 190, 0.0028, 350, 0.0018, 298) }    // 탄소강
+        };
+        // 최종 두께
+        private double CalcFinalThickness(double rollSpeed, double averageTemperature)
+        {
+            double averageTempKelvin = averageTemperature + 273.15;
+
+            if (RConst.TryGetValue(SelectedMaterial, out var constants))
+            {
+                double A = constants.A;
+                double B = constants.B;
+                double c = constants.c;
+                double D = constants.D;
+                return FinalThickness = InitialThickness * (A + (B * Math.Exp(-c * averageTempKelvin) + D * Math.Log(rollSpeed)));
+            }
+
+            return 0;
+        }
+        // 경도
+        private double CalcHardness(double averageTemperature)
+        {
+            double averageTempKelvin = averageTemperature + 273.15;
+
+            if (RConst.TryGetValue(SelectedMaterial, out var constants))
+            {
+                double H0 = constants.H0;
+                double k = constants.k;
+                return Hardness = H0 * (Math.Exp(-k * averageTempKelvin));
+            }
+
+            return 0;
+        }
+        // 강도
+        private double CalcStrength(double averageTemperature)
+        {
+            double averageTempKelvin = averageTemperature + 273.15;
+
+            if (RConst.TryGetValue(SelectedMaterial, out var constants))
+            {
+                double σref = constants.σref;
+                double k2 = constants.k2;
+                double Tref = constants.Tref;
+                return Strength = σref + Math.Exp(-k2 * (averageTempKelvin - Tref));
+            }
+
+            return 0;
+        }
+        // 압하율
+        private double CalcCompressionRatio(double initialThickness, double finalThickness)
+        {
+            double averageTempKelvin = AverageTemperature + 273.15;
+            if (RConst.TryGetValue(SelectedMaterial, out var constants))
+            {
+                return CompressionRatio = (((initialThickness - finalThickness) / initialThickness) * 100);
+            }
+            return 0;
         }
 
-        private double CaculateHardness()
+        // 불량 판별
+        private bool CheckError(double rollSpeed, double averageTemperature)
         {
-            return 30;
+            double averageTempKelvin = averageTemperature + 273.15;
+            if (RConst.TryGetValue(SelectedMaterial, out var constants))
+            {
+                // 불량 판별 로직
+                if (CompressionRatio < 99.6 || CompressionRatio > 79.6)
+                {
+                    return true; // 불량 발생
+                }
+            }
+            return false; // 불량 없음
         }
 
-        private double CaculateStrength()
+        private string _defectResult = "";
+        public string DefectResult
         {
-            return 40;
+            get => _defectResult;
+            set
+            {
+                _defectResult = value;
+                OnPropertyChanged(nameof(DefectResult));
+            }
         }
-
-        private double CaculateCompressionRatio()
-        {
-            return 13;
-        }
-        private double CaculateErrorRatio()
-        {
-            ErrorRatio = (double)Errors / CompleteCount;
-            return ErrorRatio;
-        }
-        private bool CheckoutError()
-        {
-            return true;
-        }
-        
-        
-
-        
-
-
     }
 }
 
