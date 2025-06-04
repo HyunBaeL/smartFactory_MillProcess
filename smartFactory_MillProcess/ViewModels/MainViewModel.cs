@@ -83,11 +83,6 @@ namespace smartFactory_MillProcess.ViewModels
         {
             MainWindow.Instance.Navigate(new furnacePage());
         }
-        [RelayCommand]
-        private void Letsgo2()
-        {
-            MainWindow.Instance.Navigate(new RollingMachinePage());
-        }
-
+       
     }
 }

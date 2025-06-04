@@ -15,7 +15,7 @@
     <Grid>
         <Border Width="770" Padding="15" CornerRadius="8"
              Background="#2b2f3a"
-             BorderBrush="#00c2ff" BorderThickness="2"
+             BorderBrush="#00c2ff" BorderThickness="2" SnapsToDevicePixels="True"
              HorizontalAlignment="Center" VerticalAlignment="Center" Height="430">
             <Border.Effect>
                 <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
@@ -135,7 +135,7 @@
                 <!-- 오른쪽 그래프 공간 -->
                 <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,45" Grid.RowSpan="3">
 
-                    <wpf:WpfPlot x:Name="PlotControl" Background="Transparent"/>
+                    <wpf:WpfPlot x:Name="PlotControl" />
 
 
                 </Border>

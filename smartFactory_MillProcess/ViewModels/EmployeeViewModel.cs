@@ -57,5 +57,16 @@ namespace smartFactory_MillProcess.ViewModels
                 await AllEmployeeInfo(); 
             }
         }
+
+
+        [RelayCommand]
+        private void OpenMemberAddDeleteWindow()
+        {
+            var popup = new MemberAddDeleteWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
+            popup.Show();
+        }
     }
 }

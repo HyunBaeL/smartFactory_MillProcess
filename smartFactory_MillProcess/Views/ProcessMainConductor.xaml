@@ -3,48 +3,85 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:smartFactory_MillProcess.Views"
       mc:Ignorable="d"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProcessMainConductor">
-    <Border Width="1200" Height="600" CornerRadius="8"
-        Background="#2B2F3A"
-    BorderBrush="#00C2FF" BorderThickness="1"
-    HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border.Effect>
-            <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
-        </Border.Effect>
-        <Grid Height="300" Width="600">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <!-- 제목 -->
-            <TextBlock Grid.Row="0"
-                   Text="Main Control"
-                   Foreground="#00C2FF"
-                   FontSize="20" FontWeight="SemiBold"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,50"/>
-            <!-- 이미지 -->
-            <Image x:Name="imgMachine" Width="600" Height="200" Source="pack://application:,,,/resource/machine5.png" Margin="0,40,0,60"/>
-            <!-- 버튼 라벨 -->
-            <TextBlock Text="가열로" Foreground="#00C2FF"  FontSize="13" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="150,280,0,-50"/>
-            <TextBlock Text="압연기" Foreground="#00C2FF" FontSize="13" FontWeight="SemiBold" HorizontalAlignment="Right" Margin="0,280,150,-50" />
-            <!-- 버튼 -->
-            <Border Width="80" Height="35" CornerRadius="8" Background="#00C2FF" Cursor="Hand" Margin="260,300,0,-40">
-                <Border.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding RollStatusViewCommand}" />
-                </Border.InputBindings>
-                <TextBlock Text="현재 상태" Foreground="#1B1F2B" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      Title="ProcessMainConductor"
+      Background="Transparent">
+
+    <Border Background="#2B2F3A"
+            CornerRadius="30"
+            BorderBrush="#00C2FF"
+            BorderThickness="1"
+            SnapsToDevicePixels="True">
+
+        <Grid>
+            <Border Width="600" Padding="30" CornerRadius="8"
+                    Background="#2B2F3A"
+                    BorderBrush="#00C2FF" BorderThickness="1"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+                </Border.Effect>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 제목 -->
+                    <TextBlock Grid.Row="0" Text="압연 공정 시뮬레이터"
+                               Foreground="#00C2FF"
+                               FontSize="24" FontWeight="SemiBold"
+                               HorizontalAlignment="Center"
+                               Margin="0,0,0,20"/>
+
+                    <!-- 이미지 및 상태 -->
+                    <Grid>
+                        <Image Source="pack://application:,,,/resource/machine5.png"
+                               Width="500" Height="200"
+                               HorizontalAlignment="Center"/>
+                        <!-- 상태 텍스트 -->
+                        <TextBlock Text="가열로" Foreground="#00C2FF" FontSize="13"
+                                   FontWeight="SemiBold" Margin="80,210,0,0" HorizontalAlignment="Left"/>
+                        <TextBlock Text="압연기" Foreground="#00C2FF" FontSize="13"
+                                   FontWeight="SemiBold" Margin="0,210,80,0" HorizontalAlignment="Right"/>
+
+                        <!-- 진행률 -->
+                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding FurnacePercent}"
+                                     Height="6" Width="100" Margin="50,240,0,0" HorizontalAlignment="Left"/>
+                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding RollPercent}"
+                                     Height="6" Width="100" Margin="0,240,50,0" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <!-- 버튼 -->
+                    <StackPanel Grid.Row="2" 
+                                Margin="0,20,0,0"  >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button Content="가열로 작동"
+                                Command="{Binding FurnaceStatusViewCommand}"
+                                Width="120" Height="35"
+                                Background="#00C2FF" Foreground="#1B1F2B"
+                                HorizontalAlignment="Left"
+                                Margin="40,0,0,0"
+                                FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                        <Button Content="압연기 상태"
+                                Command="{Binding RollStatusViewCommand}"
+                                Width="120" Height="35"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,40,0"
+                                Background="#00C2FF" Foreground="#1B1F2B"
+                                FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
             </Border>
-            <Border Width="80" Height="35" CornerRadius="8" Background="#00C2FF" Cursor="Hand" Margin="130,300,390,-40">
-                <Border.InputBindings>
-                    <MouseBinding Gesture="LeftClick" Command="{Binding FurnaceStatusViewCommand}" />
-                </Border.InputBindings>
-                <TextBlock Text="현재 상태" Foreground="#1B1F2B" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Border>
-            <ProgressBar x:Name="FurnacePercent" Minimum="0" Maximum="100" Height="7" Width="100" Value="{Binding FurnacePercent}" Margin="120,345,380,-60"/>
-            <ProgressBar x:Name="RollPercent" Minimum="0" Maximum="100" Grid.Row="1" Height="7" Width="100" Value="0" Margin="260,345,0, -60"/>
         </Grid>
     </Border>
 </Page>
