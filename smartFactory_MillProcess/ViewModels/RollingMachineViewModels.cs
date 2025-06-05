@@ -15,6 +15,7 @@ using ScottPlot.WPF;
 using ScottPlot.Reporting;
 using System.Reflection.Emit;
 using Mysqlx;
+using System.Security.Cryptography.X509Certificates;
 
 namespace smartFactory_MillProcess.ViewModels
 {
@@ -56,6 +57,9 @@ namespace smartFactory_MillProcess.ViewModels
         private string selectedMaterial;
         [ObservableProperty]
         private int minAllowedSped = 0;
+        [ObservableProperty]
+        private int recommendedSpeed;
+
 
         [ObservableProperty]
         private int maxAllowedSped = 0;
@@ -99,18 +103,21 @@ namespace smartFactory_MillProcess.ViewModels
                     MinAllowedSped = 5;
                     MaxAllowedSped = 10;
                     InitialThickness = 300;
+                    RecommendedSpeed = 7;
                     //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SUS304":
                     MinAllowedSped = 1;
                     MaxAllowedSped = 3;
                     InitialThickness = 200;
+                    RecommendedSpeed = 2;
                     //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SM45C":
-                    MinAllowedSped = 2;
-                    MaxAllowedSped = 4;
+                    MinAllowedSped = 4;
+                    MaxAllowedSped = 6;
                     InitialThickness = 270;
+                    RecommendedSpeed = 5;
                     //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 default:
@@ -171,6 +178,7 @@ namespace smartFactory_MillProcess.ViewModels
                 //ErrorRatio = CaculateErrorRatio();
                 //MessageBox.Show($"{CompleteCount} Errors: {Errors}");
 
+                MessageBox.Show("압연기 작업이 완료되었습니다.");
                 DefectResult = CheckError(RollSpeed, AverageTemperature) ? "불량" : "양호";
             }
         }

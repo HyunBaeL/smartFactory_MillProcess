@@ -21,7 +21,7 @@ namespace smartFactory_MillProcess.Views
     public partial class FurnaceWindow : Window
     {
         public FurnaceViewModel viewModel;
-        public FurnaceViewModel ViewModel { get; set; }
+
         public FurnaceWindow()
         {
             InitializeComponent();
@@ -31,7 +31,6 @@ namespace smartFactory_MillProcess.Views
             {
                 plotControl = PlotControl
             };
-
             this.DataContext = viewModel;
         }
     }

@@ -15,7 +15,7 @@
             SnapsToDevicePixels="True">
 
         <Grid>
-            <Border Width="600" Padding="30" CornerRadius="8"
+            <Border Width="900" Padding="30" CornerRadius="8"
                     Background="#2B2F3A"
                     BorderBrush="#00C2FF" BorderThickness="1"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -44,15 +44,15 @@
                                HorizontalAlignment="Center"/>
                         <!-- 상태 텍스트 -->
                         <TextBlock Text="가열로" Foreground="#00C2FF" FontSize="13"
-                                   FontWeight="SemiBold" Margin="80,210,0,0" HorizontalAlignment="Left"/>
+                                   FontWeight="SemiBold" Margin="270,226,0,-16" HorizontalAlignment="Left"/>
                         <TextBlock Text="압연기" Foreground="#00C2FF" FontSize="13"
-                                   FontWeight="SemiBold" Margin="0,210,80,0" HorizontalAlignment="Right"/>
+                                   FontWeight="SemiBold" Margin="0,229,272,-19" HorizontalAlignment="Right"/>
 
                         <!-- 진행률 -->
                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding FurnacePercent}"
-                                     Height="6" Width="100" Margin="50,240,0,0" HorizontalAlignment="Left"/>
+                                     Height="6" Width="100" Margin="240,250,0,-10" HorizontalAlignment="Left"/>
                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding RollPercent}"
-                                     Height="6" Width="100" Margin="0,240,50,0" HorizontalAlignment="Right"/>
+                                     Height="6" Width="100" Margin="0,252,242,-12" HorizontalAlignment="Right"/>
                     </Grid>
 
                     <!-- 버튼 -->
@@ -68,14 +68,14 @@
                                 Width="120" Height="35"
                                 Background="#00C2FF" Foreground="#1B1F2B"
                                 HorizontalAlignment="Left"
-                                Margin="40,0,0,0"
+                                Margin="230,0,0,0"
                                 FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
                             <Button Content="압연기 상태"
                                 Command="{Binding RollStatusViewCommand}"
                                 Width="120" Height="35"
                                 Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,40,0"
+                                HorizontalAlignment="Left"
+                                Margin="69,1,0,-1"
                                 Background="#00C2FF" Foreground="#1B1F2B"
                                 FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
                         </Grid>
