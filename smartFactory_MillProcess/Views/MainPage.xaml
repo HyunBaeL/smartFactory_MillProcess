@@ -135,7 +135,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Grid.Row="1" Grid.Column="0" Content="0 / 234" 
+                    <Button Grid.Row="1" Grid.Column="0" Content="{Binding MachineViewModel.TodayProcessCountFormat}" 
                             FontSize="26" FontWeight="SemiBold" 
                             FontFamily="Segoe UI" 
                             Background="#2b2f3a" Foreground="#ffffff" 
@@ -148,7 +148,7 @@
                             </Button.Effect>
                         </Button>
 
-                        <Button Grid.Row="1" Grid.Column="1" Content="0 / 234" 
+                    <Button Grid.Row="1" Grid.Column="1" Content="{Binding MachineViewModel.WeekProcessCountFormat}" 
                             FontSize="26" FontWeight="SemiBold" 
                             FontFamily="Segoe UI" 
                             Background="#2b2f3a" Foreground="#ffffff" 
@@ -161,7 +161,7 @@
                             </Button.Effect>
                         </Button>
 
-                        <Button Grid.Row="1" Grid.Column="2" Content="0 / 234" 
+                    <Button Grid.Row="1" Grid.Column="2" Content="{Binding MachineViewModel.MonthProcessCountFormat}" 
                             FontSize="26" FontWeight="SemiBold" 
                             FontFamily="Segoe UI" 
                             Background="#2b2f3a" Foreground="#ffffff" 

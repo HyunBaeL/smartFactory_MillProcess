@@ -10,8 +10,8 @@
       Background="#1b1f2b">
 
 
-    <Grid>
-        <Border Width="770" Padding="15" CornerRadius="8"
+    <Grid Background="{Binding MachineBackground}">
+        <Border Width="770" Padding="15" CornerRadius="8" 
      Background="#2b2f3a"
      BorderBrush="#00c2ff" BorderThickness="2"
 
