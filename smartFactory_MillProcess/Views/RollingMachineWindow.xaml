@@ -256,6 +256,17 @@
                             FontFamily="Noto Sans KR"
                             FontSize="18" Margin="-226,-60,234,85"
                             />
+                        <TextBlock 
+                            Text="권장 속도 :" Foreground="#FFFBF8F8" FontFamily="Noto Sans KR"
+                            FontSize="16" TextAlignment="Center" Margin="-273,29,292,23" Grid.RowSpan="2" Grid.Row="2"/>
+                        <TextBlock
+                            Text="{Binding RecommendedSpeed}"
+                            TextAlignment="Center"
+                            Foreground="White" 
+                            Background="#2b2f3a" 
+                            FontFamily="Noto Sans KR"
+                            FontSize="13" Margin="-168,31,278,27" Grid.RowSpan="2" Grid.Row="2"
+                            />
                     </Grid>
                 </Border>
             </Grid>

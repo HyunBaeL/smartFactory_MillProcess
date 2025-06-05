@@ -82,10 +82,10 @@ public partial class FurnaceViewModel : ObservableObject
         
     }
 
-    
+
+
     partial void OnSelectedMaterialChanged(string value)
     {
-        // 재료 선택 시 온도 범위 변경 (예: 이 정보를 기준으로 UI 검증에 사용)
         switch (value)
         {
             case "Al5082":
@@ -112,7 +112,7 @@ public partial class FurnaceViewModel : ObservableObject
         App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
     }
 
-    
+
 
 
     [RelayCommand]
@@ -145,6 +145,7 @@ public partial class FurnaceViewModel : ObservableObject
         {
             MessageBox.Show($"⚠ {MinAllowedTemp}~{MaxAllowedTemp}도 사이의 숫자를 입력하세요!");
         }
+        
     }
     
     public void UpdateTemperature(object? sender, EventArgs e)
@@ -174,6 +175,7 @@ public partial class FurnaceViewModel : ObservableObject
             AverageTemperature = CalculateAverageTemperature();
 
             oxideScale = CalcOxideScale(AverageTemperature, elapsedSeconds);
+            MessageBox.Show("가열로 작업이 완료되었습니다.");
 
             App.RollingVM.AverageTemperature = AverageTemperature;  // 평균 온도 전달
             App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
@@ -227,6 +229,7 @@ public partial class FurnaceViewModel : ObservableObject
     private double CalcOxideScale(double averageTempCelsius, int holdingTimeSeconds)
     {
         double averageTempKelvin = averageTempCelsius + 273.15;
+
 
         if (FConst.TryGetValue(SelectedMaterial, out var constants))
         {

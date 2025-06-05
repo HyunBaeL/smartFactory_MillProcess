@@ -79,7 +79,6 @@
                     VerticalAlignment="Center"/>
                     <ComboBox x:Name="MaterialComboBox"
                     Width="160" Height="40"
-                    SelectedIndex="-1"
                     Foreground="Black"
                     FontSize="26"
                     BorderThickness="2"
@@ -87,8 +86,7 @@
                     Background="#2b2f3a"
                     SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     FontFamily="Noto Sans KR"
-                                      ItemsSource="{Binding MaterialOptions}">
-
+                    ItemsSource="{Binding MaterialOptions}">
                     </ComboBox>
                 </StackPanel>
 
