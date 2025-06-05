@@ -16,6 +16,7 @@ namespace smartFactory_MillProcess.ViewModels
         public MachineViewModel MachineViewModel { get; } = new MachineViewModel();
         public LoginViewModel LoginViewModel { get; set; } = new LoginViewModel();
         public EmployeeViewModel EmployeeViewModel { get; set; } = new EmployeeViewModel();
+        public RollingMachineViewModel RollingMachineViewModel { get; set;} = new RollingMachineViewModel();
 
         [ObservableProperty]
         private bool isMenuOpen;
@@ -30,10 +31,11 @@ namespace smartFactory_MillProcess.ViewModels
             MachineViewModel = machineVM;
         }
 
-        public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM)
+        public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM, RollingMachineViewModel rollingVM)
         {
             LoginViewModel = loginVM;
             EmployeeViewModel = employeeVM;
+            RollingMachineViewModel = rollingVM;
             
         }
 
