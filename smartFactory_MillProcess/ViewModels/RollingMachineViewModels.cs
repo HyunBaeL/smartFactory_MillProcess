@@ -15,14 +15,27 @@ using ScottPlot.WPF;
 using ScottPlot.Reporting;
 using System.Reflection.Emit;
 using Mysqlx;
-using System.Security.Cryptography.X509Certificates;
+using smartFactory_MillProcess.Repositories;
+using System.Windows.Media;
 
 namespace smartFactory_MillProcess.ViewModels
 {
     public partial class RollingMachineViewModel : ObservableObject
     {
+        private RollingMachineRepository rollingRepo = new RollingMachineRepository();
+        public MachineStatusRepository machineStatusRepository {  get; set; } = new MachineStatusRepository();
+        MachineViewModel machineViewModel = new MachineViewModel();
+
         public bool IsMenuOpen { get; set; }
         private RollingMachine rollingMachineModel = new RollingMachine();
+        private MachineStatus machineStatus = new MachineStatus();
+
+        [ObservableProperty]
+        public int machineProcessCount;
+
+        [ObservableProperty]
+        private Brush machineBackground = Brushes.Transparent;
+
         private DispatcherTimer timer;
 
         private int elapsedSeconds;  // 🔹 경과 시간
@@ -89,8 +102,7 @@ namespace smartFactory_MillProcess.ViewModels
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += UpdateRollSpeed;
-            rollingMachineModel = new RollingMachine();
-
+            
         }
 
         partial void OnSelectedMaterialChanged(string value)
@@ -154,7 +166,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
         }
 
-        private void UpdateRollSpeed(object? sender, EventArgs e)
+        private async void UpdateRollSpeed(object? sender, EventArgs e)
         {
             if (elapsedSeconds <= 7)
             {
@@ -179,16 +191,26 @@ namespace smartFactory_MillProcess.ViewModels
                 //MessageBox.Show($"{CompleteCount} Errors: {Errors}");
 
                 MessageBox.Show("압연기 작업이 완료되었습니다.");
-                DefectResult = CheckError(RollSpeed, AverageTemperature) ? "불량" : "양호";
+
+                bool isError = CheckError(RollSpeed, AverageTemperature);
+                DefectResult = isError ? "불량" : "양호";
+
+                if (isError)
+                {
+                    _ = BlinkBackgroundAsync("Red"); // 깜빡이게
+                }
+                else
+                {
+                    _ = BlinkBackgroundAsync("Green");
+                }
+
+
+                await InsertMachineStatus(isError);
+                MachineProcessCount = await machineStatusRepository.SelectTodayTotalCount();
             }
         }
 
         
-
-        //private double CaculateCompressionRatio()
-        //{
-        //    return 13;
-        //}
         //private double CaculateErrorRatio()
         //{
         //    ErrorRatio = (double)Errors / CompleteCount;
@@ -270,10 +292,75 @@ namespace smartFactory_MillProcess.ViewModels
                 // 불량 판별 로직
                 if (CompressionRatio < 20 || CompressionRatio > 40)
                 {
+                    machineStatus.ThicknessResult = FinalThickness;
+                    machineStatus.HardnessResult = Hardness;
+                    machineStatus.StrenghResult = Strength;
+                    machineStatus.ReductionRatidResult = CompressionRatio;
+                    machineStatus.DefectStatus = true;
+
                     return true; // 불량 발생
                 }
             }
+
+            machineStatus.ThicknessResult = FinalThickness;
+            machineStatus.HardnessResult = Hardness;
+            machineStatus.StrenghResult = Strength;
+            machineStatus.ReductionRatidResult = CompressionRatio;
+            machineStatus.DefectStatus = false;
+
             return false; // 불량 없음
+        }
+
+        private async Task InsertMachineStatus(bool errorCheck)
+        {
+            if (errorCheck)
+            {
+                machineStatus = await rollingRepo.InsertMachineStatus(machineStatus); // 불량시
+                MachineProcessCount = await machineStatusRepository.SelectTodayTotalCount();
+            }
+            else
+            {
+                machineStatus = await rollingRepo.InsertMachineStatus(machineStatus); // 정상품일시
+            }
+        }
+
+        private CancellationTokenSource? blinkCancellation;
+
+        private async Task BlinkBackgroundAsync(string color)
+        {
+            blinkCancellation?.Cancel(); // 기존 깜빡임 중단
+            blinkCancellation = new CancellationTokenSource();
+            var token = blinkCancellation.Token;
+
+            try
+            {
+                for (int i = 0; i < 15; i++) // 6번 깜빡이면 약 3초
+                {
+                    if (color.Equals("Red"))
+                    {
+                        MachineBackground = Brushes.Red;
+                        await Task.Delay(250, token);
+                        MachineBackground = Brushes.Transparent;
+                        await Task.Delay(250, token);
+                    }
+                    else
+                    {
+                        MachineBackground = Brushes.Green;
+                        await Task.Delay(250, token);
+                        MachineBackground = Brushes.Transparent;
+                        await Task.Delay(250, token);
+                    }
+                    
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // 아무 것도 하지 않음
+            }
+            finally
+            {
+                MachineBackground = Brushes.Transparent;
+            }
         }
 
         private string _defectResult = "";
