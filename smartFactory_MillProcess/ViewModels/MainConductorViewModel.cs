@@ -18,7 +18,7 @@ namespace smartFactory_MillProcess.ViewModels
         [RelayCommand]
         private async Task FurnaceStatusView()
         {
-            MessageBox.Show("가열로 가동");
+            MessageBox.Show("가열로 가동", "Furnace",MessageBoxButton.OK,MessageBoxImage.Information);
             await Task.Run(() =>
             {
                 Application.Current.Dispatcher.Invoke(() =>
@@ -52,7 +52,7 @@ namespace smartFactory_MillProcess.ViewModels
         [RelayCommand]
         private async Task RollStatusView()
         {
-            MessageBox.Show("압연기 가동");
+            MessageBox.Show("압연기 가동", "RollingMachine", MessageBoxButton.OK, MessageBoxImage.Information);
             await Task.Run(() =>
             {
                 Application.Current.Dispatcher.Invoke(() =>

@@ -7,30 +7,25 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using ScottPlot;
-using ScottPlot.WPF;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 using smartFactory_MillProcess.ViewModels;
-using System.Reflection.Emit;
 
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// MemberAddDeletePage.xaml에 대한 상호 작용 논리
+    /// Interaction logic for EmployeeManagementPage.xaml
     /// </summary>
-    public partial class MemberAddDeleteWindow : Window
+    public partial class EmployeeManagementWindow : Window
     {
-        public MemberAddDeleteViewModel MVDV;
-        public MemberAddDeleteWindow()
+        public EmployeeManagementWindow()
         {
             InitializeComponent();
+            DataContext = new EmployeeViewModel();
         }
-
         public Window Owner { get; internal set; }
     }
 }

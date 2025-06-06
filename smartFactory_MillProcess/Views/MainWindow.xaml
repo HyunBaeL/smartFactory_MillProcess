@@ -87,9 +87,9 @@
                             Background="#34495E" 
                             Foreground="White" 
                             BorderBrush="Transparent"/>
-                        <Button Content="사원 관리"
+                        <Button Content="관리자 모드"
                                 Cursor="Hand"
-                            Command="{Binding MoveEmployeeManagementCommand}"
+                            Command="{Binding MoveManagerModeCommand}"
                             Margin="10" 
                             Padding="5"
                             Background="#34495E" 

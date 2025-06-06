@@ -48,11 +48,12 @@
                         <TextBlock Text="압연기" Foreground="#00C2FF" FontSize="13"
                                    FontWeight="SemiBold" Margin="0,229,272,-19" HorizontalAlignment="Right"/>
 
-                        <!-- 진행률 -->
+                        <!-- 진행률 
                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding FurnacePercent}"
                                      Height="6" Width="100" Margin="240,250,0,-10" HorizontalAlignment="Left"/>
                         <ProgressBar Minimum="0" Maximum="100" Value="{Binding RollPercent}"
                                      Height="6" Width="100" Margin="0,252,242,-12" HorizontalAlignment="Right"/>
+                        -->
                     </Grid>
 
                     <!-- 버튼 -->

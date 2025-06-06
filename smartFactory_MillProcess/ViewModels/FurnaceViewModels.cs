@@ -91,22 +91,22 @@ public partial class FurnaceViewModel : ObservableObject
             case "Al5082":
                 MinAllowedTemp = 900;
                 MaxAllowedTemp = 1100;
-                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요", "권장 온도", MessageBoxButton.OK, MessageBoxImage.Information);
                 break;
             case "SUS304":
                 MinAllowedTemp = 1100;
                 MaxAllowedTemp = 1200;
-                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요", "권장 온도", MessageBoxButton.OK, MessageBoxImage.Information);
                 break;
             case "SM45C":
                 MinAllowedTemp = 1200;
                 MaxAllowedTemp = 1300;
-                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요");
+                MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp} 사이의 값을 입력하세요","권장 온도",MessageBoxButton.OK,MessageBoxImage.Information);
                 break;
             default:
                 MinAllowedTemp = 0;
                 MaxAllowedTemp = 0;
-                MessageBox.Show("재료를 선택해주세요");
+                MessageBox.Show("재료를 선택해주세요","재료 미선택", MessageBoxButton.OK, MessageBoxImage.Information);
                 break;
         }
         App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
@@ -143,7 +143,7 @@ public partial class FurnaceViewModel : ObservableObject
         }
         else
         {
-            MessageBox.Show($"⚠ {MinAllowedTemp}~{MaxAllowedTemp}도 사이의 숫자를 입력하세요!");
+            MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp}도 사이의 숫자를 입력하세요!", "온도 오류", MessageBoxButton.OK, MessageBoxImage.Error);
         }
         
     }
@@ -175,7 +175,7 @@ public partial class FurnaceViewModel : ObservableObject
             AverageTemperature = CalculateAverageTemperature();
 
             oxideScale = CalcOxideScale(AverageTemperature, elapsedSeconds);
-            MessageBox.Show("가열로 작업이 완료되었습니다.");
+            MessageBox.Show("가열로 작업이 완료되었습니다.","가열 완료", MessageBoxButton.OK, MessageBoxImage.Information);
 
             App.RollingVM.AverageTemperature = AverageTemperature;  // 평균 온도 전달
             App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달

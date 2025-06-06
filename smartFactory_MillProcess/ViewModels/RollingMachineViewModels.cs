@@ -162,7 +162,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
             else
             {
-                MessageBox.Show($"⚠ Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
+                MessageBox.Show($"Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!", "속도 오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -190,7 +190,7 @@ namespace smartFactory_MillProcess.ViewModels
                 //ErrorRatio = CaculateErrorRatio();
                 //MessageBox.Show($"{CompleteCount} Errors: {Errors}");
 
-                MessageBox.Show("압연기 작업이 완료되었습니다.");
+                MessageBox.Show("압연기 작업이 완료되었습니다.", "공정 완료", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 bool isError = CheckError(RollSpeed, AverageTemperature);
                 DefectResult = isError ? "불량" : "양호";
@@ -210,16 +210,16 @@ namespace smartFactory_MillProcess.ViewModels
             }
         }
 
-        
-        //private double CaculateErrorRatio()
-        //{
-        //    ErrorRatio = (double)Errors / CompleteCount;
-        //    return ErrorRatio;
-        //}
-        //private bool CheckoutError()
-        //{
-        //    return true;
-        //}
+
+        private double CaculateErrorRatio()
+        {
+            ErrorRatio = (double)Errors / CompleteCount;
+            return ErrorRatio;
+        }
+        private bool CheckoutError()
+        {
+            return true;
+        }
 
         private Dictionary<string, (double A, double B, double c, double D, double H0, double k, double σref, double k2, double Tref)> RConst = new()
         {
@@ -294,8 +294,8 @@ namespace smartFactory_MillProcess.ViewModels
                 {
                     machineStatus.ThicknessResult = FinalThickness;
                     machineStatus.HardnessResult = Hardness;
-                    machineStatus.StrenghResult = Strength;
-                    machineStatus.ReductionRatidResult = CompressionRatio;
+                    machineStatus.StrengthResult = Strength;
+                    machineStatus.ReductionRatioResult = CompressionRatio;
                     machineStatus.DefectStatus = true;
 
                     return true; // 불량 발생
@@ -304,8 +304,8 @@ namespace smartFactory_MillProcess.ViewModels
 
             machineStatus.ThicknessResult = FinalThickness;
             machineStatus.HardnessResult = Hardness;
-            machineStatus.StrenghResult = Strength;
-            machineStatus.ReductionRatidResult = CompressionRatio;
+            machineStatus.StrengthResult = Strength;
+            machineStatus.ReductionRatioResult = CompressionRatio;
             machineStatus.DefectStatus = false;
 
             return false; // 불량 없음

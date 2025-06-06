@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Views\EmployeeManagementPage.xaml.cs">
+    <Compile Update="Views\EmployeeManagementWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\FurnaceWindow.xaml.cs">
@@ -11,7 +11,13 @@
     <Compile Update="Views\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\MachineStatusWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\MainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ManagerModeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\MemberAddDeleteWindow.xaml.cs">
