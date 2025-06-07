@@ -17,8 +17,8 @@
             <!-- 버튼 높이만큼 -->
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" ItemsSource="{Binding Emps}" AutoGenerateColumns="False" Margin="20,10,20,10" Background="#1b1f2b" 
-                  Foreground="Black"
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Emps}" AutoGenerateColumns="False" Margin="20,10,20,10" Background="#2b2f3a" 
+                  Foreground="#2b2f3a"
           RowBackground="White"
           AlternatingRowBackground="White">
             <DataGrid.ColumnHeaderStyle>

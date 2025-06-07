@@ -9,141 +9,170 @@
       xmlns:wpf="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
 
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Height="507" Width="800"
       Title="FurnaceWindow"
       Background="#1b1f2b">
+    <Border Background="#1b1f2b" CornerRadius="8" BorderThickness="1" BorderBrush="#00c2ff">
 
 
-    <Grid>
-        <Border Width="770" Padding="15" CornerRadius="8"
+
+
+
+        <Grid>
+            <Border Width="770" Padding="15" CornerRadius="8"
              Background="#2b2f3a"
              BorderBrush="#00c2ff" BorderThickness="2" SnapsToDevicePixels="True"
-             HorizontalAlignment="Center" VerticalAlignment="Center" Height="430">
-            <Border.Effect>
-                <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
-            </Border.Effect>
+             HorizontalAlignment="Center" VerticalAlignment="Center" Height="450">
+                <Border.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
+                </Border.Effect>
 
-            <Grid Width="700" Height="400">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <!-- 왼쪽 UI 요소 -->
-                    <ColumnDefinition Width="330"/>
-                    <!-- 오른쪽 그래프 공간 -->
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <!-- 첫 번째 줄 -->
-                    <RowDefinition Height="Auto"/>
-                    <!-- 두 번째 줄 -->
-                    <RowDefinition/>
-                    <!-- 세 번째 줄 (크기 조절 가능) -->
-                    <RowDefinition Height="Auto" MinHeight="75.747"/>
-                    <!-- ProgressBar 유지 -->
-                </Grid.RowDefinitions>
+                <Grid Width="700" Margin="18,8,18,-7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <!-- 왼쪽 UI 요소 -->
+                        <ColumnDefinition Width="330"/>
+                        <!-- 오른쪽 그래프 공간 -->
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="47"/>
+                        <RowDefinition Height="110"/>
+                        <!-- 첫 번째 줄 -->
+                        <RowDefinition Height="Auto" MinHeight="35"/>
+                        <!-- 두 번째 줄 -->
+                        <RowDefinition/>
+                        <!-- 세 번째 줄 (크기 조절 가능) -->
+                        <RowDefinition Height="Auto" MinHeight="75.747"/>
+                        <!-- ProgressBar 유지 -->
+                    </Grid.RowDefinitions>
 
-                <!-- 왼쪽 UI -->
-                <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
-                    <Grid Width="341" Height="104">
-                        <Button Width="330"
-                            HorizontalAlignment="Center"
-                            Margin="0,50,0,11"
+                    <!-- 왼쪽 UI -->
+                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" Grid.RowSpan="2">
+                        <Grid Width="342" Height="137">
+                            <Button Width="330"
+                    Height="40"
+                    Command="{Binding StartPauseRestartTemperatureUpdateCommand}"
+                HorizontalAlignment="Center"
+                Margin="0,70,0,0"
+                Background="Transparent"
+                BorderThickness="0"  VerticalAlignment="Top">
+                                <Border Background="#00c2ff"
+                    CornerRadius="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                                    <TextBlock Text="{Binding StartButtonText}"
+                        
+                        Width="330"
+                        Foreground="#1b1f2b"
+                        FontWeight="Bold"
+                        FontSize="20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        TextAlignment="Center"
+                        Padding="10" FontFamily="Swis721 Lt BT" Height="40"/>
+                                </Border>
+                            </Button>
+                            <Button Width="330"
+                            Command="{Binding ResetTemperatureUpdateCommand}"
                             Background="Transparent"
+                                                Height="40"
                             BorderThickness="0"
-                                Command="{Binding StartTemperatureUpdateCommand}">
+                            Margin="0,23,0,60"
+                            HorizontalAlignment="Center">
+                                <Border Background="#ff6b6b"
+                                CornerRadius="2"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                                    <TextBlock Text="Reset"
+                                       Width="330"
+                                       
+                                       Foreground="Black"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="9"
+                                       FontFamily="Swis721 Lt BT" Height="40"/>
+                                </Border>
+                            </Button>
+                        </Grid>
+                    </StackPanel>
 
-                            <Border Background="#00c2ff"
-                                    CornerRadius="8"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center">
-                                <TextBlock Text="START"
-                                    Width="330"
-                                    Foreground="#1b1f2b"
-                                    FontWeight="Bold"
-                                    FontSize="19"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    TextAlignment="Center"
-                                    Padding="10" FontFamily="Swis721 Lt BT"/>
-                            </Border>
-                        </Button>
-                    </Grid>
-                </StackPanel>
-
-                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="20,20,0,0">
-                    <TextBlock Text="재료 : "  
-                    Width="84"  
+                    <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Margin="22,0,0,0">
+                        <TextBlock Text="재료  : "  
+                    Width="60"  
                     Foreground="#FFF8F1F1"  
-                    FontSize="25"  
+                    FontSize="20"  
                     Height="32"  
                     FontFamily="Noto Sans KR"
                     VerticalAlignment="Center"/>
-                    <ComboBox x:Name="MaterialComboBox"
-                    Width="160" Height="40"
-                    SelectedIndex="-1"
+                        <ComboBox x:Name="MaterialComboBox"
+                    Width="264" Height="35"
                     Foreground="Black"
-                    FontSize="26"
-                    BorderThickness="2"
+                    FontSize="17"
+                    BorderThickness="0"
+                              
                     BorderBrush="#00C8FF"
                     Background="#2b2f3a"
                     SelectedItem="{Binding SelectedMaterial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     FontFamily="Noto Sans KR"
-                                      ItemsSource="{Binding MaterialOptions}">
+                    ItemsSource="{Binding MaterialOptions}">
+                        </ComboBox>
+                    </StackPanel>
 
-                    </ComboBox>
-                </StackPanel>
-
-                <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Margin="20,15,0,0">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="설정온도(°C )  :  " Width="180" HorizontalAlignment="Center" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
-                        <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" 
-                            TextAlignment="Left" Width="140" Grid.Column="1" Margin="5,0,0,0" Foreground="#FFF8F1F1" Background="#2b2f3a" FontSize="26" Height="32"/>
+                    <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Vertical" Margin="20,20,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="74*"/>
+                                <ColumnDefinition Width="101*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="설정온도(°C )  :  " Width="148" HorizontalAlignment="Center" Foreground="#FFF8F1F1" FontSize="20"/>
+                            <TextBox Text="{Binding UserInput, UpdateSourceTrigger=PropertyChanged}" 
+                            TextAlignment="Left" Grid.Column="1" Foreground="#FFF8F1F1" 
+                            Background="#2b2f3a" BorderThickness="2" Height="35" Width="177" HorizontalAlignment="Left" BorderBrush="#00c2ff" FontSize="20"/>
 
 
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="산화Scale" Margin="1,15,0,0" Width="117" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="26" Height="32"/>
-                        <TextBox Text="{Binding OxideScale, StringFormat=F6}" TextAlignment="Left" Margin="123,15,68,0" Foreground="Black" FontSize="26" Height="32" Grid.ColumnSpan="2"/>
-                        <TextBlock Text="ng/m^2" Margin="109,21,0,-6" Width="66" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="17" Height="32" Grid.Column="1"/>
-                    </Grid>
-                </StackPanel>
+                        </Grid>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="산화Scale(ng/m^2)  :" Margin="0,15,0,-2" Width="197" Height="35" HorizontalAlignment="Left" Foreground="#FFF8F1F1" FontSize="20" Grid.ColumnSpan="2"/>
+                            <TextBox Text="{Binding OxideScale, StringFormat=F3}" TextAlignment="Left" Margin="27,15,22,0" BorderThickness="1" BorderBrush="Transparent"
+                                 Background="#2b2f3a" Foreground="White"  FontSize="20" Height="35" Grid.Column="1"/>
 
-                <!-- ProgressBar를 두 개의 Column에 걸쳐서 배치 -->
-                <ProgressBar Grid.ColumnSpan="2" Grid.Row="3" Padding="10" Margin="25,0,25,40"
-                    Minimum="0" Maximum="100"
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- ProgressBar를 두 개의 Column에 걸쳐서 배치 -->
+                    <ProgressBar Grid.ColumnSpan="2" Grid.Row="4" Padding="10" Margin="25,0,25,38"
+                    Minimum="0" Maximum="100" BorderThickness="2" BorderBrush="#00c2ff"
                     Foreground="#00c2ff" Background="#1b1f2b"
                     Value="{Binding ProgressValue}" />
 
-                <TextBlock Grid.ColumnSpan="2" Grid.Row="3"
+                    <TextBlock Grid.ColumnSpan="2" Grid.Row="4"
                     Text="{Binding ProgressValue, StringFormat={}{0}%}" 
-                    Margin="200,0,0,40"
+                    Margin="200,10,0,0"
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Center" 
+                    VerticalAlignment="Top" 
                                        TextAlignment="Center"
                     Width="300"
                     FontSize="15"
                     Foreground="White" Height="20" FontFamily="Noto Sans KR"/>
 
-                <!-- 오른쪽 그래프 공간 -->
-                <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2" Margin="0,62,25,45" Grid.RowSpan="3">
+                    <!-- 오른쪽 그래프 공간 -->
+                    <Border Grid.Column="1" Background="#1b1f2b" BorderBrush="#00c2ff" BorderThickness="2.5" Margin="0,24,25,10" Grid.RowSpan="4">
 
-                    <wpf:WpfPlot x:Name="PlotControl" />
+                        <wpf:WpfPlot x:Name="PlotControl" Margin="0,0,0,-2" />
 
 
-                </Border>
+                    </Border>
 
-                <TextBlock Text="{Binding GeneratedTemperature, StringFormat='생성된 난수: {0}'}"
-           Foreground="White" FontSize="20" Margin="35" Width="180" Height="20" VerticalAlignment="Top"/>
-                <TextBlock Text="{Binding AverageTemperature, StringFormat='평균 온도: {0}'}"
-           Foreground="White" FontSize="20" Margin="10" Width="180" Height="20" VerticalAlignment="Top"/>
-            </Grid>
-        </Border>
-    </Grid>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

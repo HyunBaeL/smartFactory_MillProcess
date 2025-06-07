@@ -38,7 +38,7 @@ public partial class FurnaceViewModel : ObservableObject
     private int generatedTemperature;  // 🔹 UI에 자동 반영되는 속성 (난수 온도)
 
     [ObservableProperty]
-    private double averageTemperature;  // 🔹 UI에 자동 반영되는 속성 (평균 온도)
+    public double averageTemperature;  // 🔹 UI에 자동 반영되는 속성 (평균 온도)
     [ObservableProperty]
     private string userInput;
     [ObservableProperty]
@@ -52,6 +52,11 @@ public partial class FurnaceViewModel : ObservableObject
 
     [ObservableProperty]
     private int maxAllowedTemp = 0;
+    [ObservableProperty]
+    private string startButtonText = "Start";
+
+    private bool isPaused = false;
+    private bool isRunning = false;
 
     // 🔹 Model의 온도 기록 가져오기
 
@@ -82,10 +87,10 @@ public partial class FurnaceViewModel : ObservableObject
         
     }
 
-    
+
+
     partial void OnSelectedMaterialChanged(string value)
     {
-        // 재료 선택 시 온도 범위 변경 (예: 이 정보를 기준으로 UI 검증에 사용)
         switch (value)
         {
             case "Al5082":
@@ -109,51 +114,60 @@ public partial class FurnaceViewModel : ObservableObject
                 MessageBox.Show("재료를 선택해주세요");
                 break;
         }
+        App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
     }
-
-    
 
 
     [RelayCommand]
-    private void StartTemperatureUpdate()
+    private void StartPauseRestartTemperatureUpdate()
     {
-        
-        if (int.TryParse(UserInput, out int userTemperature) && userTemperature >= MinAllowedTemp && userTemperature <= MaxAllowedTemp)
+
+        if (!isRunning) // 처음 시작
         {
-            if (timer.IsEnabled)
+            if (int.TryParse(UserInput, out int userTemperature) && userTemperature >= MinAllowedTemp && userTemperature <= MaxAllowedTemp)
             {
-                timer.Stop(); //  기존 타이머 중단
+                DisplayTemperature = userTemperature;
+                elapsedSeconds = 0;
+                furnaceModel.TemperatureHistory.Clear();
+                furnaceModel.TimeHistory.Clear();
+                ProgressValue = 0;
+                isRunning = true;
+                isPaused = false;
+                timer.Start();
+                plotControl?.Plot.Clear();  //  그래프 초기화
+                plotControl?.Refresh();
+                StartButtonText = "Pause";
+                AverageTemperature = 0;
             }
-
-            DisplayTemperature = userTemperature;
-
-            //  타이머 및 기록 초기화
-            elapsedSeconds = 0;
-            furnaceModel.TemperatureHistory.Clear();
-            furnaceModel.TimeHistory.Clear();
-
-            ProgressValue = 0;
-            AverageTemperature = 0;
-
-            plotControl?.Plot.Clear();  //  그래프 초기화
-            plotControl?.Refresh();
-
-            timer.Start();
+            else
+            {
+                MessageBox.Show($"⚠ {MinAllowedTemp}~{MaxAllowedTemp} 사이의 숫자를 입력하세요!");
+            }
         }
-        else
+        else if (!isPaused) // 일시정지
         {
-            MessageBox.Show($"⚠ {MinAllowedTemp}~{MaxAllowedTemp}도 사이의 숫자를 입력하세요!");
+            timer.Stop();
+            isPaused = true;
+            StartButtonText = "Restart";
+        }
+        else // 재시작
+        {
+            timer.Start();
+            isPaused = false;
+            StartButtonText = "Pause";
         }
     }
-    
-    private void UpdateTemperature(object? sender, EventArgs e)
+
+
+  
+    public void UpdateTemperature(object? sender, EventArgs e)
     {
-        if (elapsedSeconds <= 60)
+        if (elapsedSeconds <= 7)
         {
             int X = CalculateX(DisplayTemperature);
             GeneratedTemperature = random.Next(DisplayTemperature - X, DisplayTemperature + X + 1);
 
-            if (furnaceModel.TemperatureHistory.Count >= 60)
+            if (furnaceModel.TemperatureHistory.Count >= 7)
             {
                 furnaceModel.TemperatureHistory.RemoveAt(0);
             }
@@ -161,7 +175,7 @@ public partial class FurnaceViewModel : ObservableObject
 
             furnaceModel.TimeHistory.Add(elapsedSeconds);
             furnaceModel.TemperatureHistory.Add(GeneratedTemperature);
-            ProgressValue = (elapsedSeconds * 100) / 60;
+            ProgressValue = (elapsedSeconds * 100) / 7;
             elapsedSeconds++;
             UpdatePlot();
 
@@ -173,6 +187,10 @@ public partial class FurnaceViewModel : ObservableObject
             AverageTemperature = CalculateAverageTemperature();
 
             oxideScale = CalcOxideScale(AverageTemperature, elapsedSeconds);
+            MessageBox.Show("가열로 작업이 완료되었습니다.");
+
+            App.RollingVM.AverageTemperature = AverageTemperature;  // 평균 온도 전달
+            App.RollingVM.SelectedMaterial = SelectedMaterial;  // 선택 재료 전달
         }
     }
    
@@ -195,14 +213,32 @@ public partial class FurnaceViewModel : ObservableObject
         );
         plt.XLabel("Seconds(s)");
         plt.YLabel("Temperature(°C)");
-        plt.Axes.SetLimitsX(0, 60);
+        plt.Axes.SetLimitsX(0, 7);
         plt.Axes.SetLimitsY(MinAllowedTemp - 30, MaxAllowedTemp + 30);
 
 
         plotControl.Refresh();
     }
 
-   
+    [RelayCommand]
+    private void ResetTemperatureUpdate()
+    {
+        timer.Stop();
+        isRunning = false;
+        isPaused = false;
+        elapsedSeconds = 0;
+        furnaceModel.TemperatureHistory.Clear();
+        furnaceModel.TimeHistory.Clear();
+        plotControl?.Plot.Clear();  //  그래프 초기화
+        plotControl?.Refresh();
+        ProgressValue = 0;
+        DisplayTemperature = 0;
+        AverageTemperature = 0;
+        StartButtonText = "Start";
+    }
+
+
+
     private double CalculateAverageTemperature()
     {
         return furnaceModel.TemperatureHistory.Count > 0 ? furnaceModel.TemperatureHistory.Average() : 0;
@@ -223,6 +259,7 @@ public partial class FurnaceViewModel : ObservableObject
     private double CalcOxideScale(double averageTempCelsius, int holdingTimeSeconds)
     {
         double averageTempKelvin = averageTempCelsius + 273.15;
+
 
         if (FConst.TryGetValue(SelectedMaterial, out var constants))
         {

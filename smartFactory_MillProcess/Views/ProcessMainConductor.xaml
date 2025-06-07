@@ -4,84 +4,116 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="ProcessMainConductor"
       Background="Transparent">
 
-    <Border Background="#2B2F3A"
-            CornerRadius="30"
-            BorderBrush="#00C2FF"
-            BorderThickness="1"
-            SnapsToDevicePixels="True">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border Background="#2B2F3A"
+                
+                
+                
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="0">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" BlurRadius="20" ShadowDepth="0" Opacity="0.5" />
+            </Border.Effect>
 
-        <Grid>
-            <Border Width="600" Padding="30" CornerRadius="8"
-                    Background="#2B2F3A"
-                    BorderBrush="#00C2FF" BorderThickness="1"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border.Effect>
-                    <DropShadowEffect Color="Black" BlurRadius="15" ShadowDepth="0" Opacity="0.5" />
-                </Border.Effect>
+            <Grid Margin="40">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <!-- 타이틀 -->
+                <TextBlock Grid.Row="0" Text="압연 공정 시뮬레이터"
+                           Foreground="#00C2FF"
+                           FontSize="28" FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,30"/>
+                <Grid Grid.Row="2" Margin="0,0,0,0" Grid.RowSpan="2"  >
 
-                    <!-- 제목 -->
-                    <TextBlock Grid.Row="0" Text="압연 공정 시뮬레이터"
+                    <TextBlock Text="가열로"
                                Foreground="#00C2FF"
-                               FontSize="24" FontWeight="SemiBold"
+                               FontSize="24"
+                               FontWeight="Bold"
                                HorizontalAlignment="Center"
-                               Margin="0,0,0,20"/>
+                               Margin="0,0,550,0"
+                               VerticalAlignment="Top"/>
 
-                    <!-- 이미지 및 상태 -->
-                    <Grid>
-                        <Image Source="pack://application:,,,/resource/machine5.png"
-                               Width="500" Height="200"
-                               HorizontalAlignment="Center"/>
-                        <!-- 상태 텍스트 -->
-                        <TextBlock Text="가열로" Foreground="#00C2FF" FontSize="13"
-                                   FontWeight="SemiBold" Margin="80,210,0,0" HorizontalAlignment="Left"/>
-                        <TextBlock Text="압연기" Foreground="#00C2FF" FontSize="13"
-                                   FontWeight="SemiBold" Margin="0,210,80,0" HorizontalAlignment="Right"/>
+                    <TextBlock Text="압연기"
+                               Foreground="#00C2FF"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Margin="550,0,0,0"
+                               VerticalAlignment="Top"/>
+                </Grid>
 
-                        <!-- 진행률 -->
-                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding FurnacePercent}"
-                                     Height="6" Width="100" Margin="50,240,0,0" HorizontalAlignment="Left"/>
-                        <ProgressBar Minimum="0" Maximum="100" Value="{Binding RollPercent}"
-                                     Height="6" Width="100" Margin="0,240,50,0" HorizontalAlignment="Right"/>
-                    </Grid>
+                <!-- 본문 이미지 및 텍스트 -->
+                <Grid Margin="0,77,0,0" Grid.RowSpan="2">
+                    <Image Source="pack://application:,,,/resource/machine5.png"
+                           Width="800"
+                           Height="350"
+                           HorizontalAlignment="Center" Margin="0,0,0,-89"/>
 
-                    <!-- 버튼 -->
-                    <StackPanel Grid.Row="2" 
-                                Margin="0,20,0,0"  >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <Button Content="가열로 작동"
-                                Command="{Binding FurnaceStatusViewCommand}"
-                                Width="120" Height="35"
-                                Background="#00C2FF" Foreground="#1B1F2B"
-                                HorizontalAlignment="Left"
-                                Margin="40,0,0,0"
-                                FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
-                        <Button Content="압연기 상태"
-                                Command="{Binding RollStatusViewCommand}"
-                                Width="120" Height="35"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right"
-                                Margin="0,0,40,0"
-                                Background="#00C2FF" Foreground="#1B1F2B"
-                                FontWeight="Bold" BorderThickness="0" Cursor="Hand"/>
-                        </Grid>
+                </Grid>
+                <Grid Grid.Row="3" VerticalAlignment="Top" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="381*"/>
+                        <ColumnDefinition Width="419*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- 버튼 영역 -->
+                    <StackPanel 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center" Grid.ColumnSpan="2"
+                            >
+                        <!-- 가열로 작동 -->
+                        <Button Command="{Binding FurnaceStatusViewCommand}"
+                            Width="250" Height="60"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Cursor="Hand">
+                            <Border Background="#00C2FF" CornerRadius="2">
+                                <TextBlock Text="가열로 작동"
+                                       Foreground="#1B1F2B"
+                                       FontWeight="Bold"
+                                       Width="250"
+                                           Height="60"
+                                       FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="15"/>
+                            </Border>
+                        </Button>
+
+                        <!-- 압연기 작동 -->
+                        <Button Command="{Binding RollStatusViewCommand}"
+                            Width="250" Height="60"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Margin="300,0,0,0"
+                            Cursor="Hand">
+                            <Border Background="#00C2FF" CornerRadius="2">
+                                <TextBlock Text="압연기 작동"
+                                       Foreground="#1B1F2B"
+                                       FontWeight="Bold"
+                                       FontSize="20"
+                                       Width="250"
+                                           Height="60"
+                                       Margin="0,0,0,0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Padding="15"/>
+                            </Border>
+                        </Button>
                     </StackPanel>
                 </Grid>
-            </Border>
-        </Grid>
-    </Border>
+            </Grid>
+        </Border>
+    </Grid>
 </Page>

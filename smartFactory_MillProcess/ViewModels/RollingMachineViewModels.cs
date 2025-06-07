@@ -15,13 +15,27 @@ using ScottPlot.WPF;
 using ScottPlot.Reporting;
 using System.Reflection.Emit;
 using Mysqlx;
+using smartFactory_MillProcess.Repositories;
+using System.Windows.Media;
 
 namespace smartFactory_MillProcess.ViewModels
 {
     public partial class RollingMachineViewModel : ObservableObject
     {
+        private RollingMachineRepository rollingRepo = new RollingMachineRepository();
+        public MachineStatusRepository machineStatusRepository {  get; set; } = new MachineStatusRepository();
+        MachineViewModel machineViewModel = new MachineViewModel();
+
         public bool IsMenuOpen { get; set; }
         private RollingMachine rollingMachineModel = new RollingMachine();
+        private MachineStatus machineStatus = new MachineStatus();
+
+        [ObservableProperty]
+        public int machineProcessCount;
+
+        [ObservableProperty]
+        private Brush machineBackground = Brushes.Transparent;
+
         private DispatcherTimer timer;
 
         private int elapsedSeconds;  // 🔹 경과 시간
@@ -56,6 +70,9 @@ namespace smartFactory_MillProcess.ViewModels
         private string selectedMaterial;
         [ObservableProperty]
         private int minAllowedSped = 0;
+        [ObservableProperty]
+        private int recommendedSpeed;
+
 
         [ObservableProperty]
         private int maxAllowedSped = 0; 
@@ -68,9 +85,14 @@ namespace smartFactory_MillProcess.ViewModels
         // app.xaml.cs 에서 온도 전달받음
         public void AverageTemperatureFromFurnace()
         {
-            double averageTemperature = App.FurnaceVM.AverageTemperature;
+            AverageTemperature = App.FurnaceVM.AverageTemperature;
 
         }
+        //// app.xaml.cs 에서 재료 선택 전달받음
+        //partial void OnSelectedMaterialChanged(string value)
+        //{
+        //    App.FurnaceVM.SelectedMaterial = value;
+        //}
 
         public ObservableCollection<string> MaterialOptions { get; } = new ObservableCollection<string>
         {
@@ -85,37 +107,40 @@ namespace smartFactory_MillProcess.ViewModels
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += UpdateRollSpeed;
-            rollingMachineModel = new RollingMachine();
-
+            
         }
 
         partial void OnSelectedMaterialChanged(string value)
         {
+            App.FurnaceVM.SelectedMaterial = value;
+
             switch (value)
             {
                 case "Al5082":
-                    MinAllowedSped = 1;
+                    MinAllowedSped = 5;
                     MaxAllowedSped = 10;
                     InitialThickness = 300;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    RecommendedSpeed = 7;
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SUS304":
                     MinAllowedSped = 1;
-                    MaxAllowedSped = 10;
+                    MaxAllowedSped = 3;
                     InitialThickness = 200;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    RecommendedSpeed = 2;
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 case "SM45C":
-                    MinAllowedSped = 1;
-                    MaxAllowedSped = 10;
+                    MinAllowedSped = 4;
+                    MaxAllowedSped = 6;
                     InitialThickness = 270;
-                    MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
+                    RecommendedSpeed = 5;
+                    //MessageBox.Show($"{MinAllowedSped}~{MaxAllowedSped} 사이의 값을 입력하세요");
                     break;
                 default:
                     MinAllowedSped = 0;
                     MaxAllowedSped = 0;
                     InitialThickness = 0;
-                    MessageBox.Show("재료를 선택해주세요");
                     break;
             }
         }
@@ -143,6 +168,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
             else if (!isPaused) // 일시정지
             {
+
                 timer.Stop();
                 isPaused = true;
                 StartButtonText = "Restart";
@@ -152,6 +178,9 @@ namespace smartFactory_MillProcess.ViewModels
                 timer.Start();
                 isPaused = false;
                 StartButtonText = "Pause";
+
+                MessageBox.Show($"⚠ Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
+
             }
         }
         [RelayCommand]
@@ -168,11 +197,11 @@ namespace smartFactory_MillProcess.ViewModels
         }
 
 
-        private void UpdateRollSpeed(object? sender, EventArgs e)
+        private async void UpdateRollSpeed(object? sender, EventArgs e)
         {
-            if (elapsedSeconds <= 60)
+            if (elapsedSeconds <= 7)
             {
-                ProgressValue = (elapsedSeconds * 100) / 60;
+                ProgressValue = (elapsedSeconds * 100) / 7;
                 elapsedSeconds++;
             }
             else
@@ -194,29 +223,27 @@ namespace smartFactory_MillProcess.ViewModels
                 //ErrorRatio = CaculateErrorRatio();
                 //MessageBox.Show($"{CompleteCount} Errors: {Errors}");
 
-                DefectResult = CheckError(RollSpeed, AverageTemperature) ? "불량" : "양호";
+                MessageBox.Show("압연기 작업이 완료되었습니다.");
+
+                bool isError = CheckError(RollSpeed, AverageTemperature);
+                DefectResult = isError ? "불량" : "양호";
+
+                if (isError)
+                {
+                    _ = BlinkBackgroundAsync("Red"); // 깜빡이게
+                }
+                else
+                {
+                    _ = BlinkBackgroundAsync("Green");
+                }
+
+
+                await InsertMachineStatus(isError);
+                MachineProcessCount = await machineStatusRepository.SelectTodayTotalCount();
             }
         }
 
-        //private double CaculateFinalThickness()
-        //{
-        //    return 15;
-        //}
-
-        //private double CaculateHardness()
-        //{
-        //    return 30;
-        //}
-
-        //private double CaculateStrength()
-        //{
-        //    return 40;
-        //}
-
-        //private double CaculateCompressionRatio()
-        //{
-        //    return 13;
-        //}
+        
         //private double CaculateErrorRatio()
         //{
         //    ErrorRatio = (double)Errors / CompleteCount;
@@ -284,7 +311,7 @@ namespace smartFactory_MillProcess.ViewModels
             double averageTempKelvin = AverageTemperature + 273.15;
             if (RConst.TryGetValue(SelectedMaterial, out var constants))
             {
-                return CompressionRatio = (((initialThickness - finalThickness) / initialThickness) * 100);
+                return CompressionRatio = (initialThickness - finalThickness) / initialThickness * 100;
             }
             return 0;
         }
@@ -296,12 +323,77 @@ namespace smartFactory_MillProcess.ViewModels
             if (RConst.TryGetValue(SelectedMaterial, out var constants))
             {
                 // 불량 판별 로직
-                if (CompressionRatio < 99.6 || CompressionRatio > 79.6)
+                if (CompressionRatio < 20 || CompressionRatio > 40)
                 {
+                    machineStatus.ThicknessResult = FinalThickness;
+                    machineStatus.HardnessResult = Hardness;
+                    machineStatus.StrenghResult = Strength;
+                    machineStatus.ReductionRatidResult = CompressionRatio;
+                    machineStatus.DefectStatus = true;
+
                     return true; // 불량 발생
                 }
             }
+
+            machineStatus.ThicknessResult = FinalThickness;
+            machineStatus.HardnessResult = Hardness;
+            machineStatus.StrenghResult = Strength;
+            machineStatus.ReductionRatidResult = CompressionRatio;
+            machineStatus.DefectStatus = false;
+
             return false; // 불량 없음
+        }
+
+        private async Task InsertMachineStatus(bool errorCheck)
+        {
+            if (errorCheck)
+            {
+                machineStatus = await rollingRepo.InsertMachineStatus(machineStatus); // 불량시
+                MachineProcessCount = await machineStatusRepository.SelectTodayTotalCount();
+            }
+            else
+            {
+                machineStatus = await rollingRepo.InsertMachineStatus(machineStatus); // 정상품일시
+            }
+        }
+
+        private CancellationTokenSource? blinkCancellation;
+
+        private async Task BlinkBackgroundAsync(string color)
+        {
+            blinkCancellation?.Cancel(); // 기존 깜빡임 중단
+            blinkCancellation = new CancellationTokenSource();
+            var token = blinkCancellation.Token;
+
+            try
+            {
+                for (int i = 0; i < 15; i++) // 6번 깜빡이면 약 3초
+                {
+                    if (color.Equals("Red"))
+                    {
+                        MachineBackground = Brushes.Red;
+                        await Task.Delay(250, token);
+                        MachineBackground = Brushes.Transparent;
+                        await Task.Delay(250, token);
+                    }
+                    else
+                    {
+                        MachineBackground = Brushes.Green;
+                        await Task.Delay(250, token);
+                        MachineBackground = Brushes.Transparent;
+                        await Task.Delay(250, token);
+                    }
+                    
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // 아무 것도 하지 않음
+            }
+            finally
+            {
+                MachineBackground = Brushes.Transparent;
+            }
         }
 
         private string _defectResult = "";
