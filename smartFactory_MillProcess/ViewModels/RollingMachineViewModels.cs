@@ -75,7 +75,12 @@ namespace smartFactory_MillProcess.ViewModels
 
 
         [ObservableProperty]
-        private int maxAllowedSped = 0;
+        private int maxAllowedSped = 0; 
+        [ObservableProperty]
+        private string startButtonText = "Start";
+
+        private bool isPaused = false;
+        private bool isRunning = false;
 
         // app.xaml.cs 에서 온도 전달받음
         public void AverageTemperatureFromFurnace()
@@ -141,30 +146,60 @@ namespace smartFactory_MillProcess.ViewModels
         }
 
         [RelayCommand]
-        private void StartRollSpeedUpdate()
+        private void StartPauseRestartRollSpeedUpdate()
         {
 
-            if (int.TryParse(UserInput, out int userSpeed) && userSpeed >= MinAllowedSped && userSpeed <= MaxAllowedSped)
+            if (!isRunning) // 처음 시작
             {
-                if (timer.IsEnabled)
+                if (int.TryParse(UserInput, out int userSpeed) && userSpeed >= MinAllowedSped && userSpeed <= MaxAllowedSped)
                 {
-                    timer.Stop(); //  기존 타이머 중단
+                    RollSpeed = userSpeed;
+                    elapsedSeconds = 0;
+                    ProgressValue = 0;
+                    isRunning = true;
+                    isPaused = false;
+                    timer.Start();
+                    StartButtonText = "Pause";
                 }
-
-                RollSpeed = userSpeed;
-
-                //  타이머 및 기록 초기화
-                elapsedSeconds = 0;
-
-                ProgressValue = 0;
-
-                timer.Start();
+                else
+                {
+                    MessageBox.Show($"⚠ {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
+                }
             }
-            else
+            else if (!isPaused) // 일시정지
             {
+
                 MessageBox.Show($"Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!", "속도 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+
+
+                timer.Stop();
+                isPaused = true;
+                StartButtonText = "Restart";
+            }
+            else // 재시작
+            {
+                timer.Start();
+                isPaused = false;
+                StartButtonText = "Pause";
+
+                MessageBox.Show($"⚠ Roll Speed {MinAllowedSped}~{MaxAllowedSped} 사이의 숫자를 입력하세요!");
+
+
             }
         }
+        [RelayCommand]
+        private void ResetRollSpeedUpdate()
+        {
+            timer.Stop();
+            isRunning = false;
+            isPaused = false;
+            elapsedSeconds = 0;
+
+            ProgressValue = 0;
+            RollSpeed = 0;
+            StartButtonText = "Start";
+        }
+
 
         private async void UpdateRollSpeed(object? sender, EventArgs e)
         {
@@ -177,7 +212,9 @@ namespace smartFactory_MillProcess.ViewModels
             {
                 timer.Stop();
                 CompleteCount++;
-
+                isRunning = false;
+                isPaused = false;
+                StartButtonText = "Start";
                 FinalThickness = CalcFinalThickness(RollSpeed,AverageTemperature);
                 Hardness = CalcHardness(AverageTemperature);
                 Strength = CalcStrength(AverageTemperature);

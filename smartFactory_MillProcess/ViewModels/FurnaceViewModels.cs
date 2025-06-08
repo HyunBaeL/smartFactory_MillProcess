@@ -52,6 +52,11 @@ public partial class FurnaceViewModel : ObservableObject
 
     [ObservableProperty]
     private int maxAllowedTemp = 0;
+    [ObservableProperty]
+    private string startButtonText = "Start";
+
+    private bool isPaused = false;
+    private bool isRunning = false;
 
     // 🔹 Model의 온도 기록 가져오기
 
@@ -113,41 +118,52 @@ public partial class FurnaceViewModel : ObservableObject
     }
 
 
-
-
     [RelayCommand]
-    private void StartTemperatureUpdate()
+    private void StartPauseRestartTemperatureUpdate()
     {
-        
-        if (int.TryParse(UserInput, out int userTemperature) && userTemperature >= MinAllowedTemp && userTemperature <= MaxAllowedTemp)
+
+        if (!isRunning) // 처음 시작
         {
-            if (timer.IsEnabled)
+            if (int.TryParse(UserInput, out int userTemperature) && userTemperature >= MinAllowedTemp && userTemperature <= MaxAllowedTemp)
             {
-                timer.Stop(); //  기존 타이머 중단
+                DisplayTemperature = userTemperature;
+                elapsedSeconds = 0;
+                furnaceModel.TemperatureHistory.Clear();
+                furnaceModel.TimeHistory.Clear();
+                ProgressValue = 0;
+                isRunning = true;
+                isPaused = false;
+                timer.Start();
+                plotControl?.Plot.Clear();  //  그래프 초기화
+                plotControl?.Refresh();
+                StartButtonText = "Pause";
+                AverageTemperature = 0;
             }
-
-            DisplayTemperature = userTemperature;
-
-            //  타이머 및 기록 초기화
-            elapsedSeconds = 0;
-            furnaceModel.TemperatureHistory.Clear();
-            furnaceModel.TimeHistory.Clear();
-
-            ProgressValue = 0;
-            AverageTemperature = 0;
-
-            plotControl?.Plot.Clear();  //  그래프 초기화
-            plotControl?.Refresh();
-
-            timer.Start();
+            else
+            {
+                MessageBox.Show($"⚠ {MinAllowedTemp}~{MaxAllowedTemp} 사이의 숫자를 입력하세요!");
+            }
         }
-        else
+        else if (!isPaused) // 일시정지
         {
+
             MessageBox.Show($"{MinAllowedTemp}~{MaxAllowedTemp}도 사이의 숫자를 입력하세요!", "온도 오류", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            timer.Stop();
+            isPaused = true;
+            StartButtonText = "Restart";
         }
-        
+        else // 재시작
+        {
+            timer.Start();
+            isPaused = false;
+            StartButtonText = "Pause";
+
+        }
     }
-    
+
+
+  
     public void UpdateTemperature(object? sender, EventArgs e)
     {
         if (elapsedSeconds <= 7)
@@ -208,7 +224,25 @@ public partial class FurnaceViewModel : ObservableObject
         plotControl.Refresh();
     }
 
-   
+    [RelayCommand]
+    private void ResetTemperatureUpdate()
+    {
+        timer.Stop();
+        isRunning = false;
+        isPaused = false;
+        elapsedSeconds = 0;
+        furnaceModel.TemperatureHistory.Clear();
+        furnaceModel.TimeHistory.Clear();
+        plotControl?.Plot.Clear();  //  그래프 초기화
+        plotControl?.Refresh();
+        ProgressValue = 0;
+        DisplayTemperature = 0;
+        AverageTemperature = 0;
+        StartButtonText = "Start";
+    }
+
+
+
     private double CalculateAverageTemperature()
     {
         return furnaceModel.TemperatureHistory.Count > 0 ? furnaceModel.TemperatureHistory.Average() : 0;
