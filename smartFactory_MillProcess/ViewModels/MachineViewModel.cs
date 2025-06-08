@@ -66,6 +66,17 @@ namespace smartFactory_MillProcess.ViewModels
         [ObservableProperty]
         private string? durationText = "양호";
 
+        [ObservableProperty]
+        public SeriesCollection newSeries;
+
+        [ObservableProperty]
+        public ObservableCollection<string> newXLabel;
+
+        private List<(DateTime Time, int Count)> _timeSeriesData = new();
+
+
+        public Func<double, string> NewValuesFormatter { get; set; }
+
         private DispatcherTimer Timer;
 
         public Func<double, string> ValuesFormatter { get; set; }
@@ -74,7 +85,7 @@ namespace smartFactory_MillProcess.ViewModels
 
         public MachineViewModel()
         {
-            
+
             Mc = Mc ?? new Machine();
 
             if (!isWorkEnvironmentStarted)
@@ -108,7 +119,7 @@ namespace smartFactory_MillProcess.ViewModels
             }
 
             UpdateGraph();
-            
+
         }
 
         private void UpdateGraph()
@@ -183,14 +194,14 @@ namespace smartFactory_MillProcess.ViewModels
                     TodayProcessAmount();
 
                     DateTimeAndGraphUpdate();
-                    
+
 
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message);
-                
+
             }
             finally
             {
@@ -232,6 +243,9 @@ namespace smartFactory_MillProcess.ViewModels
                 lastMonthReset = DateTime.Now; // 마지막 월간 초기화 날짜 갱신
             }
 
+            // ✔ 오늘 작업량 갱신
+            TodayProcessCount = MachineProcessCount ?? 0;
+
             // DB에서 TodayProcessCount 값 가져오기
             TodayProcessCountFormat = MachineProcessCount.ToString() + " / 250";
 
@@ -241,12 +255,12 @@ namespace smartFactory_MillProcess.ViewModels
 
             MonthProcessCount = TodayProcessCount + MonthCount;
             MonthProcessCountFormat = MachineProcessCount.ToString() + " / 5000";
-            }
+        }
 
-            
 
-            private void DateTimeAndGraphUpdate()
-            {
+
+        private void DateTimeAndGraphUpdate()
+        {
             // 현재 시간을 구합니다.
             DateTime currentTime = DateTime.Now;
 
@@ -341,5 +355,102 @@ namespace smartFactory_MillProcess.ViewModels
             // 소수 첫째 자리까지만 반올림하여 정수로 리턴
             return (int)Math.Round(resultPollution, 1);
         }
+
+        [RelayCommand]
+        private async void OpenDailyWindow()
+        {
+            MachineProcessCount = await machineStatusRepository.SelectTodayTotalCount();
+            TodayProcessAmount();
+
+            // 새 시간 값 반영
+            DateTimeAndGraphUpdate2();
+
+            var window = new ProcessGraph1();
+            window.DataContext = this;
+            window.Show();
+        }
+
+    //    public void DrawNewGraph()
+    //    {
+    //        NewXLabel = new ObservableCollection<string>();
+            
+
+    //        NewSeries = new SeriesCollection
+    //{
+    //    new LineSeries
+    //    {
+    //        Title = "오늘 작업량",
+    //        Values = new ChartValues<int> { TodayProcessCount },
+    //        Stroke = System.Windows.Media.Brushes.DeepSkyBlue,
+    //        Fill = System.Windows.Media.Brushes.Transparent,
+    //        PointGeometry = DefaultGeometries.Circle,
+    //        StrokeThickness = 2
+    //    },
+    //    new LineSeries
+    //    {
+    //        Title = "전체 기준 작업량 (250)",
+    //        Values = new ChartValues<double> { 250 },
+    //        Stroke = System.Windows.Media.Brushes.Gray,
+    //        Fill = System.Windows.Media.Brushes.Transparent,
+    //        PointGeometry = null,
+    //        StrokeThickness = 2,
+    //        StrokeDashArray = new System.Windows.Media.DoubleCollection { 2 }
+    //    }
+    //};
+
+    //        // 값 포맷터
+    //        NewValuesFormatter = val => $"{val}";
+    //    }
+
+        private void DateTimeAndGraphUpdate2()
+        {
+            // 현재 시간 및 작업량 기록
+            DateTime now = DateTime.Now;
+            int currentCount = TodayProcessCount;
+
+            // 새로운 데이터 추가
+            _timeSeriesData.Add((now, currentCount));
+
+            // 최대 8개만 유지
+            if (_timeSeriesData.Count > 8)
+                _timeSeriesData.RemoveAt(0);
+
+            // 레이블과 그래프 값 갱신
+            NewXLabel = new ObservableCollection<string>(
+                _timeSeriesData.Select(t => t.Time.ToString("HH:mm"))
+            );
+
+            var todayValues = new ChartValues<int>(
+                _timeSeriesData.Select(t => t.Count)
+            );
+
+            var fixedLine = new ChartValues<int>(Enumerable.Repeat(250, _timeSeriesData.Count));
+
+            NewSeries = new SeriesCollection
+    {
+        new LineSeries
+        {
+            Title = "오늘 작업량",
+            Values = todayValues,
+            Stroke = System.Windows.Media.Brushes.DeepSkyBlue,
+            Fill = System.Windows.Media.Brushes.Transparent,
+            PointGeometry = DefaultGeometries.Circle,
+            StrokeThickness = 2
+        },
+        new LineSeries
+        {
+            Title = "전체 기준 작업량",
+            Values = fixedLine,
+            Stroke = System.Windows.Media.Brushes.Gray,
+            Fill = System.Windows.Media.Brushes.Transparent,
+            PointGeometry = null,
+            StrokeThickness = 2,
+            StrokeDashArray = new System.Windows.Media.DoubleCollection { 2 }
+        }
+    };
+
+            NewValuesFormatter = val => $"{val}";
+        }
+
     }
 }

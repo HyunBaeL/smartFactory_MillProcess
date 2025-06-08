@@ -105,5 +105,20 @@ namespace smartFactory_MillProcess.ViewModels
             RollingMachineWindow.Show();
         }
 
+        [RelayCommand]
+        private void OpenProcessGraph()
+        {
+            var graphWindow = new ProcessGraph1();
+            graphWindow.DataContext = MachineViewModel;  // 뷰모델 바인딩
+            graphWindow.Show();
+        }
+
+
+        //[RelayCommand]
+        //private void MoveProcessGraphWindow()
+        //{
+        //    MainWindow.Instance.Navigate(new ProcessGraph1());
+        //}
+
     }
 }
