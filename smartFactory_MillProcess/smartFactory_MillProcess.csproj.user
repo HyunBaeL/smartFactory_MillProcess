@@ -23,6 +23,9 @@
     <Compile Update="Views\MemberAddDeleteWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ProcessGraph1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ProcessMainConductor.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
