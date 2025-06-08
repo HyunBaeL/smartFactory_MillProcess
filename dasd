@@ -1,0 +1,48 @@
+[33m8107167[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhyunsu[m[33m, [m[1;31morigin/hyunsu[m[33m)[m 관리자 모드 업데이트 및 메시지 박스 수정
+[33macf047f[m Merge branch 'main' into hyunsu
+[33m84565bd[m hyunsu
+[33m181d968[m Merge pull request #16 from HyunBaeL/feature/clean-rollingThread
+[33mc96a6ca[m 멀티쓰레드 압축기능 DB 반영 & UI 깜빡임 처리
+[33md1d1cec[m Merge pull request #15 from HyunBaeL/hyunsu
+[33mc1ac965[m 온도 저장 및 압연기 재료 결정
+[33m108c587[m Merge pull request #14 from HyunBaeL/cb
+[33md96aa58[m window.xaml 수정
+[33m9905805[m 디자인 수정 및 회원등록 삭제
+[33m53d293e[m Merge pull request #13 from HyunBaeL/feature/fix-cleanup
+[33md5645b0[m[33m ([m[1;31morigin/feature/fix-cleanup[m[33m)[m 가열로 수정
+[33m57e831e[m mainForm 데이터 바인딩 수정
+[33me59b5b9[m Merge pull request #12 from HyunBaeL/hyunsu
+[33m2a3d691[m 압연기 기능 활성화 및 산화스케일 추가 등
+[33m838b915[m Merge branch 'main' of https://github.com/HyunBaeL/smartFactory_MillProcess into cb
+[33m5b7482d[m button setting
+[33md10b968[m Merge pull request #11 from HyunBaeL/hyunsu
+[33m28fc112[m FurnaceViewModel checking
+[33mbd69cb4[m Merge pull request #10 from HyunBaeL/feature/fix-cleanup
+[33mbf5df07[m bin.obj tracking block test
+[33m28dadc4[m Delete smartFactory_MillProcess/bin/Debug/net8.0-windows directory
+[33ma6e74ca[m Delete smartFactory_MillProcess/obj directory
+[33m05874ef[m Update .gitignore
+[33m885b899[m Update .gitignore
+[33md743726[m Merge pull request #8 from HyunBaeL/hyunbae
+[33m73a4252[m[33m ([m[1;31morigin/hyunbae[m[33m)[m fix: Machine 쓰레드 DB 작업 추가
+[33mcad4de7[m 메인 페이지 Machine DB 작업 완료
+[33m796999f[m Merge pull request #7 from HyunBaeL/seochangbum
+[33m6fa4094[m[33m ([m[1;31morigin/seochangbum[m[33m)[m 압연기 로직 커밋
+[33mc23532d[m Merge pull request #6 from HyunBaeL/hyunbae
+[33m265c8e8[m fix: 충돌사항 해결
+[33ma2b4984[m Merge pull request #4 from HyunBaeL/hyunbae
+[33mbe95820[m fix: error complete
+[33ma109a35[m 사원관리 crud & 메인 ui 폼 수정
+[33m7afee10[m Merge pull request #3 from HyunBaeL/seochangBoom
+[33mff507b4[m[33m ([m[1;31morigin/seochangBoom[m[33m)[m 6월 2일 서창범 첫번째 커밋
+[33m5e378fe[m 가열로 작업 완료
+[33m6181013[m 0530 2255 first commit
+[33mcfeec96[m Merge pull request #2 from HyunBaeL/hyunbae
+[33m7046c89[m 충돌해결
+[33m9e85bd8[m back & logout & 사원관리 DB 로딩
+[33m026a199[m 가열로, 압엽기 수정 커밋
+[33m14685b5[m 가열로, 압연기 페이지 푸시
+[33me2993cd[m Merge pull request #1 from HyunBaeL/hyunbae
+[33m92c1bc4[m 메인 페이지 ui & db연동
+[33m5646ea1[m 프로젝트 초기 세팅
+[33md4ca5df[m Initial commit
