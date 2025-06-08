@@ -24,8 +24,8 @@ namespace smartFactory_MillProcess.Repositories
             using var cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.AddWithValue("@ThicknessResult", ms.ThicknessResult);
             cmd.Parameters.AddWithValue("@HardnessResult", ms.HardnessResult);
-            cmd.Parameters.AddWithValue("@StrengthResult", ms.StrenghResult);
-            cmd.Parameters.AddWithValue("@ReductionRatioResult", ms.ReductionRatidResult);
+            cmd.Parameters.AddWithValue("@StrengthResult", ms.StrengthResult);
+            cmd.Parameters.AddWithValue("@ReductionRatioResult", ms.ReductionRatioResult);
             cmd.Parameters.AddWithValue("@DefectStatus", ms.DefectStatus);
 
             await cmd.ExecuteNonQueryAsync();

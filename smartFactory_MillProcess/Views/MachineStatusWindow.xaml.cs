@@ -10,21 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using smartFactory_MillProcess.ViewModels;
 
 namespace smartFactory_MillProcess.Views
 {
     /// <summary>
-    /// Interaction logic for EmployeeManagementPage.xaml
+    /// Interaction logic for MachineStatusWindow.xaml
     /// </summary>
-    public partial class EmployeeManagementPage : Page
+    public partial class MachineStatusWindow : Window
     {
-        public EmployeeManagementPage()
+        public MachineStatusWindow()
         {
             InitializeComponent();
-            DataContext = new EmployeeViewModel();
+            DataContext = new MachineStatusViewModel();
         }
+        public Window Owner { get; internal set; }
     }
 }

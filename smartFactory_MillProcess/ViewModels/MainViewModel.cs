@@ -15,8 +15,8 @@ namespace smartFactory_MillProcess.ViewModels
     {
         public MachineViewModel MachineViewModel { get; } = new MachineViewModel();
         public LoginViewModel LoginViewModel { get; set; } = new LoginViewModel();
-        public EmployeeViewModel EmployeeViewModel { get; set; } = new EmployeeViewModel();
         public RollingMachineViewModel RollingMachineViewModel { get; set;} = new RollingMachineViewModel();
+        public ManagerModeViewModel ManagerModeViewModel { get; set; } = new ManagerModeViewModel();
 
         [ObservableProperty]
         private bool isMenuOpen;
@@ -31,12 +31,11 @@ namespace smartFactory_MillProcess.ViewModels
             MachineViewModel = machineVM;
         }
 
-        public MainViewModel(LoginViewModel loginVM, EmployeeViewModel employeeVM, RollingMachineViewModel rollingVM)
+        public MainViewModel(LoginViewModel loginVM, ManagerModeViewModel ManagerModeVM, RollingMachineViewModel rollingVM)
         {
             LoginViewModel = loginVM;
-            EmployeeViewModel = employeeVM;
+            ManagerModeViewModel = ManagerModeVM; 
             RollingMachineViewModel = rollingVM;
-            
         }
 
         [RelayCommand]
@@ -67,9 +66,10 @@ namespace smartFactory_MillProcess.ViewModels
         }
 
         [RelayCommand]
-        private void MoveEmployeeManagement()
+        private void MoveManagerMode()
         {
-            MainWindow.Instance.Navigate(new EmployeeManagementPage());
+            var ManagerModeWindow = new ManagerModeWindow();
+            ManagerModeWindow.Show();
         }
 
         [RelayCommand]

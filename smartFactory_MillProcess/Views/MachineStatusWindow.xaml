@@ -1,0 +1,51 @@
+﻿<Window x:Class="smartFactory_MillProcess.Views.MachineStatusWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:smartFactory_MillProcess.Views"
+        mc:Ignorable="d"
+        Title="MachineStatusWindow" Height="450" Width="800">
+    <Grid Background="white">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- DataGrid가 차지하는 영역 -->
+            <RowDefinition Height="Auto" />
+            <!-- 버튼 높이만큼 -->
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Results}" AutoGenerateColumns="False" Margin="20,10,20,10" Background="white" 
+              Foreground="Black"
+      RowBackground="White"
+      AlternatingRowBackground="White">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="White"/>
+                    <!-- 헤더 배경색 -->
+                    <Setter Property="Foreground" Value="Black"/>
+                    <!-- 헤더 글자색 -->
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="1,1,1,3"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="일련번호" Binding="{Binding TaskId}" IsReadOnly="True">
+                <DataGridTextColumn.ElementStyle>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="TextAlignment" Value="Center"/>
+                    </Style>
+                </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="두께(mm)" Binding="{Binding ThicknessResult, StringFormat=N4}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="경도(HV)" Binding="{Binding HardnessResult, StringFormat=N4}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="강도(Pa)" Binding="{Binding StrengthResult, StringFormat=N4}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="압하율(%)" Binding="{Binding ReductionRatioResult, StringFormat=N4}" IsReadOnly="True"/>
+                <DataGridCheckBoxColumn Header="불량 여부" Binding="{Binding DefectStatus}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="제조 날짜" Binding="{Binding CreatedDate, StringFormat=yyyy-MM-dd}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

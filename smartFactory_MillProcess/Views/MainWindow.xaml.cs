@@ -23,7 +23,7 @@ namespace smartFactory_MillProcess.Views
         public MainViewModel MainVM { get; private set; }
         public MachineViewModel MachineVM { get; private set; }
 
-        public EmployeeViewModel EmployeeVM { get; private set; }
+        public ManagerModeViewModel ManagerModeVM { get; private set; }
         public FurnaceViewModel FurnaceVM { get; private set; }
         public RollingMachineViewModel RollingMachineVM { get; private set; }
 
@@ -32,6 +32,8 @@ namespace smartFactory_MillProcess.Views
         public MemberAddDeleteViewModel MVDV { get; private set; }
 
         
+
+
 
         private Stack<Page> NavigationHistory = new Stack<Page>();
 
@@ -52,18 +54,20 @@ namespace smartFactory_MillProcess.Views
             var screen = System.Windows.SystemParameters.WorkArea; // 작업 표시줄 제외한 영역
 
             LoginVM = new LoginViewModel();
-            EmployeeVM = new EmployeeViewModel();
             RollingMachineVM = new RollingMachineViewModel();
+            ManagerModeVM = new ManagerModeViewModel();
             //furnaceVM = new FurnaceViewModel();
             //rollingMachineVM = new RollingMachineViewModel();
 
-            MainVM = new MainViewModel(LoginVM, EmployeeVM, RollingMachineVM);
+            MainVM = new MainViewModel(LoginVM, ManagerModeVM ,RollingMachineVM);
             DataContext = MainVM;
             MachineVM = new MachineViewModel();
             //EmployeeVM = new EmployeeViewModel();
             FurnaceVM = new FurnaceViewModel();
             //RollingMachineVM = new RollingMachineViewModel();
             MVDV = new MemberAddDeleteViewModel();
+
+            
 
             MainFrame.Navigate(new LoginUser(LoginVM));
 
