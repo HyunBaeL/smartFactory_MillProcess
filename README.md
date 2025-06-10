@@ -19,12 +19,11 @@
 
 ## 🔧 사용 기술 스택
 
-- **언어/플랫폼**: C# (.NET 6 or .NET Framework)
+- **언어**: C#
 - **UI 프레임워크**: WPF (Windows Presentation Foundation)
 - **디자인 패턴**: MVVM (Model-View-ViewModel)
 - **MVVM 지원**: CommunityToolkit.Mvvm
-- **데이터 시각화**: LiveCharts2
-- **PLC 통신**: TCP/IP 기반 시뮬레이션
+- **데이터 시각화**: LiveCharts, ScottPlot
 
 ---
 
